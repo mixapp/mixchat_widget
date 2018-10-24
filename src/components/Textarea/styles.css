@@ -1,21 +1,21 @@
-.omni-input-container {
+.omni-textarea-container {
     display: flex;
     flex-direction: column;
     font-size: 12px;
     width: 100%;
 }
-.omni-input-container label {
+.omni-textarea-container label {
     font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
     color: #666666;
     font-weight: bold;
 }
-.omni-input, .omni-input:focus, .omni-input:active {
-    height: 28px;
-    font-family: 'Roboto', sans-serif;
+.omni-textarea, .omni-textarea:focus, .omni-textarea:active {
     border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    resize: none;
     border: 1px solid #9F9F9F;
     outline: none;
-    padding: 0 8px 0 8px;
+    padding: 8px 8px 8px 8px;
     margin-bottom: 20px;
 }

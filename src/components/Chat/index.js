@@ -15,7 +15,7 @@ export default class Chat extends Component {
         // Создаем пользователя в рокет чате
         // Сохраняем в куки (через метод в апи)
         
-        await Api.timeout(5000);
+        await Api.timeout(1000);
 
         if (!isAvailable) {
             // Если операторов нет, переходим на страницу заявки 

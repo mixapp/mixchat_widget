@@ -13,7 +13,7 @@ const Init = async (opts) => {
         const container = document.createElement('div');
         container.id = 'widget_omni_chanel';
         document.body.appendChild(container);
-        ReactDOM.render(<App settings={settings} options={opts} />, document.body);
+        ReactDOM.render(<App settings={settings} />, document.body);
     } catch (err) {
         console.error(err);
     }

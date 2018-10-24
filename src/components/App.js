@@ -19,7 +19,7 @@ export default class App extends React.Component {
     }
     render() {
         const {state, lastState} = this.state;
-        const {settings, options} = this.props;
+        const {settings} = this.props;
         if (state === 'button') {
             return <Button lastState={lastState} {...settings} nav={this.nav.bind(this)}/>
         }

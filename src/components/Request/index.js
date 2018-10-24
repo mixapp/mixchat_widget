@@ -15,7 +15,7 @@ export default class Request extends Component {
             <div className="request">
                 <img height="40" src={require('./brain.png')} />
                 <div style={{width: '80%'}}>
-                    <p className="info">К сожалению, на данный момент все менеджеры заняты. 
+                    <p className="info">К сожалению, на данный момент все операторы заняты. 
                         Оставьте свое сообщение и мы свяжемся с Вами</p>
                     <Input title="Email" placeholder="ivan@ivanov.ru"/>
                     <Textarea title="Сообщение" placeholder="Введите сообщение..."/>

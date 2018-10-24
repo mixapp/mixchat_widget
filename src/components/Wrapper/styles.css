@@ -7,7 +7,6 @@
     bottom: 0;
     width: 300px;
     height: 410px;
-    background: #f7f7f7;
     overflow: hidden;
 }
 
@@ -33,9 +32,11 @@
     width: 10px;
 }
 .body {
-    flex: 1;
+    flex: 1 1;
     padding: 10px;
     border: 1px solid #ededed;
+    align-items: center;
+    display: flex;
 }
 
 @media screen and (max-width: 480px) {

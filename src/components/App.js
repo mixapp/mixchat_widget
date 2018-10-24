@@ -28,10 +28,10 @@ export default class App extends React.Component {
             return <Chat {...settings} nav={this.nav.bind(this)}/>
         }
         if (state === 'callback') {
-            return <Callback nav={this.nav.bind(this)}/>
+            return <Callback {...settings} nav={this.nav.bind(this)}/>
         }
         if (state === 'request') {
-            return <Request nav={this.nav.bind(this)}/>
+            return <Request {...settings} nav={this.nav.bind(this)}/>
         }
         return null;
     }

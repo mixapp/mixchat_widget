@@ -1,0 +1,19 @@
+.omni-input-container {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    width: 100%;
+}
+.omni-input-container label {
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 5px;
+    color: #666666;
+    font-weight: bold;
+}
+.omni-input, .omni-input:focus, .omni-input:active {
+    height: 28px;
+    border-radius: 5px;
+    border: 1px solid #9F9F9F;
+    outline: none;
+    padding: 0 8px 0 8px;
+}

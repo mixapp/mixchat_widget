@@ -70,23 +70,30 @@ export default class Button extends React.Component {
     }
     render() {
         const {showButtons} = this.state;
-        const {nav} = this.props;
-        return <div>
-            {showButtons && <div className="messenger-list">
+        const {nav, color} = this.props;
+        return <div className={showButtons ? 'list-visible' : ''}>
+
+            <div className={'messenger-list'}>
                 <div className="messenger-item" onClick={() => {nav('chat')}}>
                     <div className="messenger-title">Чат с оператором</div>
-                    <div className="messenger-icon"></div>
+                    <div className="messenger-icon">
+                        <div style={{background: '#33d9b2'}} className="chat-icon">
+                            <img src={require(`./chat.svg`)}/>
+                        </div>
+                    </div>
                 </div>
                 <div className="messenger-item" onClick={() => {nav('callback')}}>
                     <div className="messenger-title">Обратный звонок</div>
-                    <div className="messenger-icon"></div>
+                    <div className="messenger-icon">
+                        <div style={{background: '#227093'}} className="chat-icon">
+                            <img src={require(`./call.svg`)}/>
+                        </div>
+                    </div>
                 </div>
-
                 {this.renderMessengerLinks()}
-                
-            </div>}
+            </div>
             <div className='qButton' onClick={this.onClickHandler.bind(this)}>
-                <img className='pulse' src={require('./qButton.svg')}/>
+                <img className='pulse' style={{background: color}} src={require('./qButton.svg')}/>
             </div>
         </div>
     }

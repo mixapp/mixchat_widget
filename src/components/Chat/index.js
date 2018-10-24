@@ -28,11 +28,11 @@ export default class Chat extends Component {
     }
 
     render() {
-        const {nav} = this.props;
+        const {nav, color} = this.props;
         const {isLoading} = this.state;
 
         return <Wrapper nav={nav} title="Чат с оператором">
-            {isLoading ? (<Loader/>) : (<div className="chat">
+            {isLoading ? (<Loader color={color} />) : (<div className="chat">
                 <div className="chat-body">
                     Body
                 </div>

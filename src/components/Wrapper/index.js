@@ -3,7 +3,6 @@ import './styles.css';
 
 export default class Wrapper extends Component {
     render() {
-        const Child = this.props.children;
         const {nav} = this.props;
         return <div className="container">
             <div className="title">

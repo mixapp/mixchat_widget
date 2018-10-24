@@ -10,9 +10,9 @@ export const config = {
 
 
 // Fetch widget settings by company
-export const fetchSettings = async (companyId) => {
+export const fetchSettings = async () => {
     try {
-        const uri = getUrl('5bc6fb3e0dec1f9f4f294ca1', 'widget');
+        const uri = getUrl(config.companyId, 'widget');
         const result = await axios.get(uri);
         return result.data.result;
     } catch (err) {

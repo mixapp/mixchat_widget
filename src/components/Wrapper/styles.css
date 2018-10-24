@@ -13,6 +13,7 @@
 
 .title {
     display: flex;
+    font-family: 'Roboto', sans-serif;
     color: #ffffff;
     font-size: 12px;
     justify-content: space-between;

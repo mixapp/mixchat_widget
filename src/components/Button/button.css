@@ -39,7 +39,7 @@
 .messenger-list {
   position: fixed;
   right: 30px;
-  bottom: 80px;
+  bottom: 100px;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s, visibility 0.5s;
@@ -60,12 +60,14 @@
   cursor: pointer;
   text-decoration: none;
   color: black;
+  font-family: 'Roboto', sans-serif;
 }
 
 .messenger-title {
   text-decoration: none;
   color: black;
   margin-right: 15px;
+  font-size: 14px;
 }
 
 .messenger-icon {

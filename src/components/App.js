@@ -3,6 +3,7 @@ import Button from './Button/index';
 import Chat from './Chat/index';
 import Callback from './Callback/index';
 import Request from './Request/index';
+import './styles.css';
 
 export default class App extends React.Component {
     constructor(props) {

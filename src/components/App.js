@@ -14,8 +14,10 @@ export default class App extends React.Component {
         };
     }
     nav(to) {
+        const {state} = this.state;
         this.setState({
-            state: to
+            state: to,
+            lastState: state
         });
     }
     render() {

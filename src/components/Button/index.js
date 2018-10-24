@@ -70,8 +70,8 @@ export default class Button extends React.Component {
     }
     render() {
         const {showButtons} = this.state;
-        const {nav, color} = this.props;
-        return <div className={showButtons ? 'list-visible' : ''}>
+        const {nav, color, lastState} = this.props;
+        return <div className={(showButtons) ? 'list-visible' : ''}>
 
             <div className={'messenger-list'}>
                 <div className="messenger-item" onClick={() => {nav('chat')}}>

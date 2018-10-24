@@ -13,9 +13,10 @@ export default class Request extends Component {
 
         return <Wrapper nav={nav} title="Обратный звонок">
             <div className="request">
-                <p className="info">К сожалению, на данный момент все менеджеры заняты. 
-                Оставьте свои контактные данные, и мы свяжемся с Вами или напишите нам в любой из мессенджеров.</p>
+                <img height="40" src={require('./brain.png')} />
                 <div style={{width: '80%'}}>
+                    <p className="info">К сожалению, на данный момент все менеджеры заняты. 
+                        Оставьте свое сообщение и мы свяжемся с Вами</p>
                     <Input title="Email" placeholder="ivan@ivanov.ru"/>
                     <Textarea title="Сообщение" placeholder="Введите сообщение..."/>
                     <SimpleButton title="Отправить" onClick={this.onClickHandle.bind(this)} color={color} />

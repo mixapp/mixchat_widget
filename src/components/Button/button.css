@@ -1,0 +1,52 @@
+.qButton {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+}
+
+.pulse {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #dbe9f9;
+    cursor: pointer;
+    box-shadow: 0 0 0 #4a90e2;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .pulse:hover {
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+.messenger-list {
+  position: fixed;
+  right: 30px;
+  bottom: 80px;
+}
+
+.messenger-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.messenger-title {
+  text-decoration: none;
+  color: black;
+  margin-right: 25px;
+}
+
+.messenger-icon {
+  width: 40px;
+  height: 40px;
+}

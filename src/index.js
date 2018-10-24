@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-//import * as serviceWorker from './serviceWorker';
+import App from './components/App';
+import * as Api from './api';
 
-//ReactDOM.render(<App />, document.getElementById('root'));
-
-const Widget = {
-    alert: () => {
-        alert('OK');
+const Init = async (opts) => {
+    try {
+        Api.config.companyId = opts.companyId;
+        let settings = await Api.fetchSettings();
+        if (!settings.isActive) {
+            return;   
+        }
+        const container = document.createElement('div');
+        container.id = 'widget_omni_chanel';
+        document.body.appendChild(container);
+        ReactDOM.render(<App settings={settings} options={opts} />, document.body);
+    } catch (err) {
+        console.error(err);
     }
 }
-
-export default Widget;
+export {Init as Widget}

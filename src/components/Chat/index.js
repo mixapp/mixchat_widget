@@ -1,45 +1,53 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Wrapper from '../Wrapper/index';
 import Loader from '../Loader/index';
 import * as Api from '../../api';
+import Comments from './components';
+import BottomConteiner from './chat_footer';
 import './styles.css';
+
 export default class Chat extends Component {
-    state = {
-        isLoading: true
+  state = {
+    isLoading: true
+  }
+
+  async componentDidMount() {
+    const { nav } = this.props;
+
+    /* Проверяем userId и roomId из cookies*/
+    let result = await Api.init();
+    /* Если token не вернули, создаём нового юзера и получаем новый token */
+    if (!result.token) result = await Api.init(true);
+    /* Проверяем наличие менеджера в чате */
+    let groupsMembers = await Api.groupsMembers(result.roomId, result.token, result.userId);
+    if (groupsMembers.data.members.length < 2) {
+      // Если операторов нет, переходим на страницу заявки 
+      return nav('request');
     }
 
-    async componentDidMount() {
-        const {nav} = this.props;
-        let isAvailable = false; // Доступность менеджеров, будешь из апи получать
+    var groupsHistory = await Api.groupsHistory(result.roomId, null, result.token, result.userId);
+    this.setState({
+      messages: groupsHistory.data.messages
+    })
 
-        // Создаем пользователя в рокет чате
-        // Сохраняем в куки (через метод в апи)
-        
-        await Api.timeout(1000);
+    this.setState({
+      isLoading: false
+    });
+  }
 
-        if (!isAvailable) {
-            // Если операторов нет, переходим на страницу заявки 
-            return nav('request');
-        }
-        
-        this.setState({
-            isLoading: false
-        });
-    }
+  render() {
+    const { nav, color } = this.props;
+    const { isLoading } = this.state;
 
-    render() {
-        const {nav, color} = this.props;
-        const {isLoading} = this.state;
-
-        return <Wrapper nav={nav} title="Чат с оператором">
-            {isLoading ? (<Loader color={color} />) : (<div className="chat">
-                <div className="chat-body">
-                    Body
-                </div>
-                <div className="chat-footer">
-                    Footer
-                </div>
-            </div>)}
-        </Wrapper>
-    }
+    return <Wrapper nav={nav} title="Чат с оператором">
+      {isLoading ? (<Loader color={color} />) : (<div className="chat">
+        <div className="chat-body">
+          <Comments messages={this.state.messages} />
+        </div>
+        <div className="chat-footer">
+          <BottomConteiner />
+        </div>
+      </div>)}
+    </Wrapper>
+  }
 }

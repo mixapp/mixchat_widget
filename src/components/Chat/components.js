@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 class Avatar extends Component {
   render() {
     return (
-      <div>
-        <img src={this.props.avatar} alt='comment avatar' />
+      <div className='avatar'>
+        <img src={this.props.avatar} height='30' width='30' alt='comment avatar' />
       </div>
     )
   }
@@ -13,12 +13,12 @@ class Avatar extends Component {
 class CommentText extends Component {
   render() {
     return (
-      <div>
+      <div className='comment-text'>
         <div>
           <div>{this.props.nickname}</div>
           <div>{this.props.date}</div>
         </div>
-        <div>
+        <div className='text'>
           {this.props.text}
         </div>
       </div>
@@ -29,7 +29,7 @@ class CommentText extends Component {
 class Comment extends Component {
   render() {
     return (
-      <div>
+      <div className='comment'>
         <Avatar avatar={this.props.data.avatar} />
         <CommentText
           nickname={this.props.data.nickname}
@@ -46,7 +46,7 @@ export default class Comments extends Component {
     return (
       <div>
         {
-          this.props.messages.map((value, key) => {
+          this.props.comments.map((value, key) => {
             value.key = key + new Date().getTime();
             return <Comment
               key={value.key.toString()}

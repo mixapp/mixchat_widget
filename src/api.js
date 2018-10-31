@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Parser from 'html-react-parser';
 
 const getUrl = (processId, companyId, path) => {
   return `https://api.mixapp.io/webhooks/mixapp/${processId}/${companyId}/${path}`
@@ -10,7 +11,12 @@ export const config = {
   frontApiProcessId: '5bc49dd735b38203254872a5'
 };
 
-
+function getCurrentTime() {
+  return new Date().toLocaleTimeString('en-GB', {
+    hour: "numeric",
+    minute: "numeric"
+  });
+}
 
 // Fetch widget settings by company
 export const fetchSettings = async () => {
@@ -148,5 +154,44 @@ export const init = async function (newUser) {
 
   } catch (error) {
     console.error(error);
+  }
+}
+
+export const getMessages = async (roomId, oldest, authToken, userId) => {
+  try {
+
+    let comments = [];
+    let result_ = await groupsMembers(roomId, authToken, userId);
+    let user_1 = result_.data.members[0];
+    let user_2 = result_.data.members[1];
+    let result = await groupsHistory(roomId, oldest, authToken, userId);
+    result = result.data.messages.reverse();
+    for (let i = 0; i < result.length; i++) {
+      let message = result[i];
+      let nickname, manager, avatar;
+
+      if (message.u._id === user_1._id) {
+        nickname = user_1.username;
+        manager = false;
+        avatar = 'https://pp.userapi.com/c846019/v846019379/363af/-93jUzr3Bas.jpg'
+      } else {
+        nickname = user_2.username;
+        manager = true;
+        avatar = 'https://pp.userapi.com/c638825/v638825227/505db/HokgJ-HZ288.jpg'
+      }
+
+      comments.push({
+        avatar: avatar,
+        nickname: nickname,
+        text: Parser(message.msg.replace(/\n/g, '<br/>')),
+        date: getCurrentTime(),
+        manager: manager
+      });
+    }
+
+    return comments;
+
+  } catch (err) {
+    throw err;
   }
 }

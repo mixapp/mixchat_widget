@@ -14,26 +14,26 @@ export default class App extends React.Component {
         };
     }
     nav(to) {
-        const {state} = this.state;
+        const { state } = this.state;
         this.setState({
             state: to,
             lastState: state
         });
     }
     render() {
-        const {state, lastState} = this.state;
-        const {settings} = this.props;
+        const { state, lastState } = this.state;
+        const { settings } = this.props;
         if (state === 'button') {
-            return <Button lastState={lastState} {...settings} nav={this.nav.bind(this)}/>
+            return <Button lastState={lastState} {...settings} nav={this.nav.bind(this)} />
         }
         if (state === 'chat') {
-            return <Chat {...settings} nav={this.nav.bind(this)}/>
+            return <Chat {...settings} nav={this.nav.bind(this)} />
         }
         if (state === 'callback') {
-            return <Callback {...settings} nav={this.nav.bind(this)}/>
+            return <Callback {...settings} nav={this.nav.bind(this)} />
         }
         if (state === 'request') {
-            return <Request {...settings} nav={this.nav.bind(this)}/>
+            return <Request {...settings} nav={this.nav.bind(this)} />
         }
         return null;
     }

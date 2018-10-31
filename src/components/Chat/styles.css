@@ -1,12 +1,47 @@
 .chat {
     font-family: 'Roboto', sans-serif;
+    height: 376px;
+    width: 100%;
+    overflow: auto;
 }
-.chat > div {
+
+.chat>div {
     font-family: 'Roboto', sans-serif;
 }
-.chat > a {
+
+.chat>a {
     font-family: 'Roboto', sans-serif;
 }
-.chat > p {
+
+.chat>p {
     font-family: 'Roboto', sans-serif;
-} 
+}
+
+.chat-body {
+    height: 300px;
+    overflow: auto;
+}
+
+div.comment {
+    display: flex;
+}
+
+div.comment-text>div:nth-child(1) {
+    color: cadetblue;
+    font-size: 10px;
+    display: flex;
+}
+
+div.avatar img {
+    border-radius: 100px;
+    margin-right: 5px;
+}
+
+.chat-footer {
+    padding: 5px 5px;
+}
+
+#textarea-text {
+    border: 1px solid cadetblue;
+    border-radius: 3px;
+}

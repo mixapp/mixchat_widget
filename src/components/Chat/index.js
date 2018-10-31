@@ -8,7 +8,9 @@ import './styles.css';
 
 export default class Chat extends Component {
   state = {
-    isLoading: true
+    isLoading: true,
+    comments: [],
+    commentText: ''
   }
 
   async componentDidMount() {
@@ -25,10 +27,11 @@ export default class Chat extends Component {
       return nav('request');
     }
 
-    var groupsHistory = await Api.groupsHistory(result.roomId, null, result.token, result.userId);
+    let comments = await Api.getMessages(result.roomId, null, result.token, result.userId);
+
     this.setState({
-      messages: groupsHistory.data.messages
-    })
+      comments: comments
+    });
 
     this.setState({
       isLoading: false
@@ -42,7 +45,7 @@ export default class Chat extends Component {
     return <Wrapper nav={nav} title="Чат с оператором">
       {isLoading ? (<Loader color={color} />) : (<div className="chat">
         <div className="chat-body">
-          <Comments messages={this.state.messages} />
+          <Comments comments={this.state.comments} />
         </div>
         <div className="chat-footer">
           <BottomConteiner />

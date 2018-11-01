@@ -20,6 +20,31 @@ function getCurrentTime() {
   });
 }
 
+export const sentRequest = async (email, message) => {
+  try {
+    const uri = getUrl(config.backApiProcessId, config.companyId, 'requests');
+    let result = await axios.post(uri,{
+      email,
+      message
+    });
+    return result.data.result;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const sentCallbackRequest = async (phone) => {
+  try {
+    const uri = getUrl(config.backApiProcessId, config.companyId, 'callback');
+    let result = await axios.post(uri,{
+      phone
+    });
+    return result.data.result;
+  } catch (err) {
+    throw err;
+  }
+};
+
 // Fetch widget settings by company
 export const fetchSettings = async () => {
   try {

@@ -26,19 +26,24 @@ div.comment {
     display: flex;
 }
 
+div.comment-text {
+    width: 100%;
+}
+
 div.comment-text>div:nth-child(1) {
     color: cadetblue;
     font-size: 10px;
     display: flex;
+    justify-content: flex-start;
+}
+
+div.comment-text>div:nth-child(1)>div:nth-child(2) {
+    margin-left: auto;
 }
 
 div.avatar img {
     border-radius: 100px;
-    margin-right: 5px;
-}
-
-.chat-footer {
-    padding: 5px 5px;
+    margin: 5px;
 }
 
 #textarea-text {

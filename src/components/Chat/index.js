@@ -9,8 +9,7 @@ import './styles.css';
 export default class Chat extends Component {
   state = {
     isLoading: true,
-    comments: [],
-    commentText: ''
+    comments: []
   }
 
   async componentDidMount() {
@@ -18,8 +17,10 @@ export default class Chat extends Component {
 
     /* Проверяем userId и roomId из cookies*/
     let result = await Api.init();
+
     /* Если token не вернули, создаём нового юзера и получаем новый token */
     if (!result.token) result = await Api.init(true);
+
     /* Проверяем наличие менеджера в чате */
     let groupsMembers = await Api.groupsMembers(result.roomId, result.token, result.userId);
     if (groupsMembers.data.members.length < 2) {
@@ -27,11 +28,13 @@ export default class Chat extends Component {
       return nav('request');
     }
 
+    /* Получаем комменты */
     let comments = await Api.getMessages(result.roomId, null, result.token, result.userId);
-
     this.setState({
       comments: comments
     });
+
+    await Api.webSocket(this);
 
     this.setState({
       isLoading: false

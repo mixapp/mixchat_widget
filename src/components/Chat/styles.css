@@ -2,7 +2,6 @@
     font-family: 'Roboto', sans-serif;
     height: 376px;
     width: 100%;
-    overflow: auto;
 }
 
 .chat>div {
@@ -20,10 +19,22 @@
 .chat-body {
     height: 300px;
     overflow: auto;
+    width: 110%;
+}
+
+.chat-body>div {
+    padding-right: 20px;
 }
 
 div.comment {
     display: flex;
+    padding-bottom: 10px;
+}
+
+div.comment-revers {
+    display: flex;
+    padding-bottom: 10px;
+    flex-direction: row-reverse;
 }
 
 div.comment-text {
@@ -47,6 +58,48 @@ div.avatar img {
 }
 
 #textarea-text {
-    border: 1px solid cadetblue;
-    border-radius: 3px;
+    border-radius: 10px;
+    border: solid #ececec 1px;
+    overflow: hidden;
+    outline: none;
+    padding: 5px 5px;
+    max-height: 45px;
+}
+
+.comment>.comment-text>.text {
+    display: flex;
+    font-size: 15px;
+    margin-left: auto;
+    border-radius: 0px 10px 10px 10px;
+    padding: 11px;
+    text-align: left;
+    background-color: #cce2fa;
+}
+
+.comment-revers>.comment-text>.text {
+    display: flex;
+    font-size: 15px;
+    margin-left: auto;
+    border-radius: 10px 0px 10px 10px;
+    padding: 11px;
+    text-align: left;
+    background-color: #eff6ff;
+}
+
+.bottom-conteiner {
+    display: flex;
+}
+
+div.bottom-conteiner>div:nth-child(1) {
+    width: 100%;
+}
+
+div.bottom-conteiner>div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+div.bottom-conteiner>div:nth-child(2)>img {
+    margin-left: 10px;
 }

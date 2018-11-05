@@ -4,7 +4,7 @@ class Avatar extends Component {
   render() {
     return (
       <div className='avatar'>
-        <img src={this.props.avatar} height='30' width='30' alt='comment avatar' />
+        <img src={this.props.avatar} height='45' width='45' alt='comment avatar' />
       </div>
     )
   }
@@ -29,7 +29,7 @@ class CommentText extends Component {
 class Comment extends Component {
   render() {
     return (
-      <div className='comment'>
+      <div className={this.props.data.manager ? 'comment' : 'comment-revers'}>
         <Avatar avatar={this.props.data.avatar} />
         <CommentText
           nickname={this.props.data.nickname}

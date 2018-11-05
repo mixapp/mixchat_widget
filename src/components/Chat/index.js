@@ -41,6 +41,13 @@ export default class Chat extends Component {
     });
   }
 
+  async componentDidUpdate() {
+    var e = document.querySelector('.chat-body');
+    if (e) {
+      e.scrollTop = 9999;
+    }
+  }
+
   render() {
     const { nav, color } = this.props;
     const { isLoading } = this.state;

@@ -23,7 +23,7 @@ function getCurrentTime() {
 export const sentRequest = async (email, message) => {
   try {
     const uri = getUrl(config.backApiProcessId, config.companyId, 'requests');
-    let result = await axios.post(uri,{
+    let result = await axios.post(uri, {
       email,
       message
     });
@@ -36,7 +36,7 @@ export const sentRequest = async (email, message) => {
 export const sentCallbackRequest = async (phone) => {
   try {
     const uri = getUrl(config.backApiProcessId, config.companyId, 'callback');
-    let result = await axios.post(uri,{
+    let result = await axios.post(uri, {
       phone
     });
     return result.data.result;
@@ -222,11 +222,11 @@ export const getMessages = async (roomId, oldest, authToken, userId) => {
     let result_ = await groupsMembers(roomId, authToken, userId);
     let result = await groupsHistory(roomId, oldest, authToken, userId);
     if (isManager(result_.data.members[0].username)) {
-      user_manager = result_.data.members[0];
-      user_client = result_.data.members[1];
-    } else {
       user_manager = result_.data.members[1];
       user_client = result_.data.members[0];
+    } else {
+      user_manager = result_.data.members[0];
+      user_client = result_.data.members[1];
     }
     result = result.data.messages.reverse();
     for (let i = 0; i < result.length; i++) {
@@ -242,6 +242,29 @@ export const getMessages = async (roomId, oldest, authToken, userId) => {
 
 /* Chat api */
 
+export const sendToRocketChat = async (roomId, authToken, userId, text) => {
+  try {
+
+    let result = await axios({
+      method: 'POST',
+      url: 'https://chat.mixapp.io/api/v1/chat.postMessage',
+      data: {
+        roomId: roomId,
+        text: text
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Auth-Token': authToken,
+        'X-User-Id': userId
+      }
+    });
+    return result;
+
+  } catch (err) {
+    throw err;
+  }
+}
+
 var commentText = '';
 var commentReactObj = null;
 
@@ -250,7 +273,12 @@ export const sendComment = async () => {
     return;
   }
 
-  console.log(commentText);
+  // Stream API
+  let authToken = localStorage.getItem('mixapp.token');
+  let roomId = localStorage.getItem('mixapp.roomId');
+  let userId = localStorage.getItem('mixapp.userId');
+
+  let result = await sendToRocketChat(roomId, authToken, userId, commentText);
 
   /* Отправка сообщение */
   if (false)
@@ -258,6 +286,7 @@ export const sendComment = async () => {
 
   commentText = '';
   document.getElementById('textarea-text').innerHTML = '';
+  return result;
 }
 
 export const getComment = async () => {
@@ -306,26 +335,30 @@ export const webSocket = async (self) => {
       ddp.sub('stream-room-messages', [roomId, false]);
     });
 
-    ddp.on('changed', msg => {
-      let args = msg.fields.args[0];
-      let username = args.u.username;
-      let is_Manager = isManager(username);
-      let avatar;
-      if (isManager(username)) {
-        avatar = 'https://pp.userapi.com/c638825/v638825227/505db/HokgJ-HZ288.jpg';
-      } else {
-        avatar = 'https://pp.userapi.com/c846019/v846019379/363af/-93jUzr3Bas.jpg';
-      }
+    ddp.on('changed', async (msg) => {
+      try {
+        let args = msg.fields.args[0];
+        let username = args.u.username;
+        let is_Manager = await isManager(username);
+        let avatar;
+        if (is_Manager) {
+          avatar = 'https://pp.userapi.com/c638825/v638825227/505db/HokgJ-HZ288.jpg';
+        } else {
+          avatar = 'https://pp.userapi.com/c846019/v846019379/363af/-93jUzr3Bas.jpg';
+        }
 
-      self.setState({
-        comments: [...self.state.comments, {
-          avatar: avatar,
-          nickname: username,
-          text: Parser(args.msg.replace(/\n/g, '<br/>')),
-          date: getCurrentTime(),
-          manager: is_Manager
-        }]
-      })
+        self.setState({
+          comments: [...self.state.comments, {
+            avatar: avatar,
+            nickname: username,
+            text: Parser(args.msg.replace(/\n/g, '<br/>')),
+            date: getCurrentTime(),
+            manager: is_Manager
+          }]
+        })
+      } catch (err) {
+        throw err;
+      }
     })
 
   } catch (err) {

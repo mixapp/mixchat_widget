@@ -173,6 +173,8 @@ export const init = async function (newUser) {
       token = result.data.token;
     }
 
+    console.log(this);
+
     return {
       userId: userId,
       roomId: roomId,
@@ -187,7 +189,7 @@ export const init = async function (newUser) {
 
 /* Functions */
 
-export const getMessage = async (message, user_manager, user_client) => {
+async function getMessage(message, user_manager, user_client) {
   try {
 
     let nickname, manager;

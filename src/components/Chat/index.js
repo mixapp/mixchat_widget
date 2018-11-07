@@ -82,6 +82,7 @@ export default class Chat extends Component {
         <div className="chat-body">
           <Comments comments={this.state.comments} />
         </div>
+        <hr />
         <div className="chat-footer">
           <BottomConteiner />
         </div>

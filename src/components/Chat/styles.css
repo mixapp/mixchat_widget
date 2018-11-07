@@ -4,6 +4,10 @@
     width: 100%;
 }
 
+.chat>hr {
+    border: solid #ececec 1px;
+}
+
 .chat>div {
     font-family: 'Roboto', sans-serif;
 }
@@ -84,7 +88,8 @@ div.avatar-revers>div {
     overflow: hidden;
     outline: none;
     padding: 5px 5px;
-    max-height: 45px;
+    max-height: 35px;
+    font-size: 14px;
 }
 
 .comment>.comment-text>.text {

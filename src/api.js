@@ -13,8 +13,8 @@ export const config = {
   frontApiProcessId: '5bc49dd735b38203254872a5'
 };
 
-function getCurrentTime() {
-  return new Date().toLocaleTimeString('en-GB', {
+function getCurrentTime(date) {
+  return new Date(date).toLocaleTimeString('en-GB', {
     hour: "numeric",
     minute: "numeric"
   });
@@ -203,7 +203,7 @@ export const getMessage = async (message, user_manager, user_client) => {
     return {
       nickname: nickname,
       text: Parser(message.msg.replace(/\n/g, '<br/>')),
-      date: getCurrentTime(),
+      date: getCurrentTime(message.ts),
       manager: manager
     };
 
@@ -262,37 +262,6 @@ export const sendToRocketChat = async (roomId, authToken, userId, text) => {
     throw err;
   }
 }
-
-/*
-var commentText = '';
-var commentReactObj = null;
-
-export const sendComment = async () => {
-  if (String(commentText) < 1) {
-    return;
-  }
-
-  // Stream API
-  let authToken = localStorage.getItem('mixapp.token');
-  let roomId = localStorage.getItem('mixapp.roomId');
-  let userId = localStorage.getItem('mixapp.userId');
-
-  let result = await sendToRocketChat(roomId, authToken, userId, commentText);
-
-  commentText = '';
-  document.getElementById('textarea-text').innerHTML = '';
-  return result;
-}
-
-export const changeComment = async (event) => {
-  commentText = textVersion(document.getElementById('textarea-conteiner').innerHTML);
-  commentReactObj = Parser(document.getElementById('textarea-conteiner').innerHTML);
-
-  if (event.key === 'Enter' && event.ctrlKey) {
-    sendComment();
-  }
-}
-*/
 
 export const isManager = async (nickname) => {
   try {

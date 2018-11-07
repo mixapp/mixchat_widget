@@ -184,10 +184,10 @@ export const init = async function (newUser) {
   }
 }
 
-var user_manager = '';
-var user_client = '';
 
-export const getMessage = async (message) => {
+/* Functions */
+
+export const getMessage = async (message, user_manager, user_client) => {
   try {
 
     let nickname, manager;
@@ -215,6 +215,8 @@ export const getMessage = async (message) => {
 export const getMessages = async (roomId, oldest, authToken, userId) => {
   try {
 
+    let user_manager = '';
+    let user_client = '';
     let comments = [];
     let result_ = await groupsMembers(roomId, authToken, userId);
     let result = await groupsHistory(roomId, oldest, authToken, userId);
@@ -227,7 +229,7 @@ export const getMessages = async (roomId, oldest, authToken, userId) => {
     }
     result = result.data.messages.reverse();
     for (let i = 0; i < result.length; i++) {
-      comments.push(await getMessage(result[i]));
+      comments.push(await getMessage(result[i], user_manager, user_client));
     }
 
     return comments;
@@ -237,11 +239,10 @@ export const getMessages = async (roomId, oldest, authToken, userId) => {
   }
 }
 
-/* Chat api */
-
 export const sendToRocketChat = async (roomId, authToken, userId, text) => {
   try {
 
+    console.log('111');
     let result = await axios({
       method: 'POST',
       url: 'https://chat.mixapp.io/api/v1/chat.postMessage',
@@ -262,6 +263,7 @@ export const sendToRocketChat = async (roomId, authToken, userId, text) => {
   }
 }
 
+/*
 var commentText = '';
 var commentReactObj = null;
 
@@ -277,20 +279,9 @@ export const sendComment = async () => {
 
   let result = await sendToRocketChat(roomId, authToken, userId, commentText);
 
-  /* Отправка сообщение */
-  if (false)
-    return;
-
   commentText = '';
   document.getElementById('textarea-text').innerHTML = '';
   return result;
-}
-
-export const getComment = async () => {
-  return {
-    commentText: this.commentText,
-    commentReactObj: this.commentReactObj
-  }
 }
 
 export const changeComment = async (event) => {
@@ -301,6 +292,7 @@ export const changeComment = async (event) => {
     sendComment();
   }
 }
+*/
 
 export const isManager = async (nickname) => {
   try {

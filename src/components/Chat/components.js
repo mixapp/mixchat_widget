@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 
 class Avatar extends Component {
   render() {
+    let name, classNme;
+    if (this.props.manager) {
+      name = "Y";
+      classNme = "avatar";
+    } else {
+      name = "M";
+      classNme = "avatar-revers";
+    }
     return (
-      <div className='avatar'>
-        <img src={this.props.avatar} height='45' width='45' alt='comment avatar' />
+      <div className={classNme}>
+        <div>{name}</div>
       </div>
     )
   }
@@ -30,7 +38,7 @@ class Comment extends Component {
   render() {
     return (
       <div className={this.props.data.manager ? 'comment' : 'comment-revers'}>
-        <Avatar avatar={this.props.data.avatar} />
+        <Avatar manager={this.props.data.manager} />
         <CommentText
           nickname={this.props.data.nickname}
           text={this.props.data.text}

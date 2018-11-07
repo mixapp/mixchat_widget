@@ -52,9 +52,30 @@ div.comment-text>div:nth-child(1)>div:nth-child(2) {
     margin-left: auto;
 }
 
-div.avatar img {
-    border-radius: 100px;
-    margin: 5px;
+div.avatar>div {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(162, 205, 255);
+    border-radius: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-right: 3px;
+    margin-top: 12px;
+}
+
+div.avatar-revers>div {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(162, 205, 255);
+    border-radius: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-left: 3px;
+    margin-top: 12px;
 }
 
 #textarea-text {
@@ -68,20 +89,18 @@ div.avatar img {
 
 .comment>.comment-text>.text {
     display: flex;
-    font-size: 15px;
-    margin-left: auto;
-    border-radius: 0px 10px 10px 10px;
-    padding: 11px;
+    font-size: 14px;
+    border-radius: 0px 13px 13px 13px;
+    padding: 10px;
     text-align: left;
     background-color: #cce2fa;
 }
 
 .comment-revers>.comment-text>.text {
     display: flex;
-    font-size: 15px;
-    margin-left: auto;
-    border-radius: 10px 0px 10px 10px;
-    padding: 11px;
+    font-size: 14px;
+    border-radius: 13px 0px 13px 13px;
+    padding: 10px;
     text-align: left;
     background-color: #eff6ff;
 }
@@ -102,4 +121,33 @@ div.bottom-conteiner>div:nth-child(2) {
 
 div.bottom-conteiner>div:nth-child(2)>img {
     margin-left: 10px;
+}
+
+.send-button {
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
+    background-color: rgb(162, 205, 255);
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.send-button::after {
+    content: '';
+    position: relative;
+    border: 20px solid transparent;
+    border-bottom: 8px solid rgb(103, 173, 255);
+    border-left: 0px solid rgb(103, 173, 255);
+    left: 10px;
+    bottom: 32px;
+}
+
+.send-button::before {
+    content: '';
+    position: relative;
+    border: 20px solid transparent;
+    border-left: 0px solid rgb(103, 173, 255);
+    border-top: 8px solid rgb(103, 173, 255);
+    top: 27px;
+    left: 10px;
 }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './styles.css';
 import * as Api from '../../api';
-import Send_button from '../Button/send_button.svg';
-
 
 class BottomConteinerForm extends Component {
   render() {
@@ -11,7 +9,7 @@ class BottomConteinerForm extends Component {
         <div id='textarea-text' contentEditable onKeyUp={Api.changeComment}></div>
       </div>,
       <div key='send_button' onClick={Api.sendComment}>
-        <img src={Send_button} alt='Send_button' width='32' height='32' alt='send_button' />
+        <div className='send-button'></div>
       </div>
     ]
   }

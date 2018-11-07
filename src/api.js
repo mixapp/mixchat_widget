@@ -190,20 +190,17 @@ var user_client = '';
 export const getMessage = async (message) => {
   try {
 
-    let nickname, manager, avatar;
+    let nickname, manager;
 
     if (message.u._id === user_client._id) {
       nickname = user_client.username;
       manager = false;
-      avatar = 'https://pp.userapi.com/c846019/v846019379/363af/-93jUzr3Bas.jpg'
     } else {
       nickname = user_manager.username;
       manager = true;
-      avatar = 'https://pp.userapi.com/c638825/v638825227/505db/HokgJ-HZ288.jpg'
     }
 
     return {
-      avatar: avatar,
       nickname: nickname,
       text: Parser(message.msg.replace(/\n/g, '<br/>')),
       date: getCurrentTime(),
@@ -315,7 +312,7 @@ export const isManager = async (nickname) => {
   }
 }
 
-export const webSocket = async (self) => {
+export const webSocket = async (cb) => {
   try {
 
     // Stream API
@@ -330,7 +327,6 @@ export const webSocket = async (self) => {
     const ddp = new DDP(options);
 
     ddp.on('connected', () => {
-      console.log('Connected');
       ddp.method('login', [{ resume: authToken }]);
       ddp.sub('stream-room-messages', [roomId, false]);
     });
@@ -340,22 +336,9 @@ export const webSocket = async (self) => {
         let args = msg.fields.args[0];
         let username = args.u.username;
         let is_Manager = await isManager(username);
-        let avatar;
-        if (is_Manager) {
-          avatar = 'https://pp.userapi.com/c638825/v638825227/505db/HokgJ-HZ288.jpg';
-        } else {
-          avatar = 'https://pp.userapi.com/c846019/v846019379/363af/-93jUzr3Bas.jpg';
-        }
 
-        self.setState({
-          comments: [...self.state.comments, {
-            avatar: avatar,
-            nickname: username,
-            text: Parser(args.msg.replace(/\n/g, '<br/>')),
-            date: getCurrentTime(),
-            manager: is_Manager
-          }]
-        })
+        cb(username, args, is_Manager);
+
       } catch (err) {
         throw err;
       }

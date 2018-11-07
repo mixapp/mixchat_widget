@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Wrapper from '../Wrapper/index';
 import Loader from '../Loader/index';
+import Parser from 'html-react-parser';
 import * as Api from '../../api';
 import Comments from './components';
 import BottomConteiner from './chat_footer';
@@ -34,7 +35,31 @@ export default class Chat extends Component {
       comments: comments
     });
 
-    await Api.webSocket(this);
+    function getCurrentTime() {
+      return new Date().toLocaleTimeString('en-GB', {
+        hour: "numeric",
+        minute: "numeric"
+      });
+    }
+
+    async function addComment(username, args, is_Manager) {
+      try {
+
+        this.setState({
+          comments: [...this.state.comments, {
+            nickname: username,
+            text: Parser(args.msg.replace(/\n/g, '<br/>')),
+            date: getCurrentTime(),
+            manager: is_Manager
+          }]
+        })
+
+      } catch (err) {
+        throw err;
+      }
+    }
+
+    await Api.webSocket(addComment.bind(this));
 
     this.setState({
       isLoading: false

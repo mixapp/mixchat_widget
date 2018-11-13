@@ -173,8 +173,6 @@ export const init = async function (newUser) {
       token = result.data.token;
     }
 
-    console.log(this);
-
     return {
       userId: userId,
       roomId: roomId,
@@ -244,7 +242,6 @@ export const getMessages = async (roomId, oldest, authToken, userId) => {
 export const sendToRocketChat = async (roomId, authToken, userId, text) => {
   try {
 
-    console.log('111');
     let result = await axios({
       method: 'POST',
       url: 'https://chat.mixapp.io/api/v1/chat.postMessage',

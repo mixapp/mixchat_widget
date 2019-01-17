@@ -129,7 +129,6 @@ export const regClient = async () => {
 
 export const startChat = async (userId, roomId) => {
   try {
-
     const uri = getUrl(config.frontApiProcessId, config.companyId, 'start-chat');
     let result = await axios.post(uri, {
       userId: userId,

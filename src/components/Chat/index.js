@@ -24,7 +24,7 @@ export default class Chat extends Component {
 
     /* Проверяем наличие менеджера в чате */
     let groupsMembers = await Api.groupsMembers(result.roomId, result.token, result.userId);
-    if (groupsMembers.data.members.length < 2) {
+    if (groupsMembers.data.members.length < 2 || result.msg.error) {
       // Если операторов нет, переходим на страницу заявки 
       return nav('request');
     }

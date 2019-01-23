@@ -156,13 +156,13 @@ export const init = async function (newUser) {
 
     let userId = localStorage.getItem('mixapp.userId');
     let roomId = localStorage.getItem('mixapp.roomId');
-    let token;
+    let token, result;
     if (userId && roomId) {
-      let result = await startChat(userId, roomId);
+      result = await startChat(userId, roomId);
       localStorage.setItem('mixapp.token', result.data.token);
       token = result.data.token;
     } else {
-      let result = await regClient();
+      result = await regClient();
       localStorage.setItem('mixapp.userId', result.data.userId);
       userId = result.data.userId;
       localStorage.setItem('mixapp.roomId', result.data.roomId);
@@ -173,6 +173,7 @@ export const init = async function (newUser) {
     }
 
     return {
+      msg: result.data.msg,
       userId: userId,
       roomId: roomId,
       token: token

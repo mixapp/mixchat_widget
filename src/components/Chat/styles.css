@@ -23,7 +23,7 @@
 .chat-body {
     height: 300px;
     overflow: auto;
-    width: 110%;
+    width: 107%;
 }
 
 .chat-body>div {

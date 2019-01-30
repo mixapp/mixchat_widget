@@ -76,8 +76,7 @@ export default class Chat extends Component {
   render() {
     const { nav, color } = this.props;
     const { isLoading } = this.state;
-
-    return <Wrapper nav={nav} title="Чат с оператором">
+    return <Wrapper nav={nav} color={color} title="Чат с оператором">
       {isLoading ? (<Loader color={color} />) : (<div className="chat">
         <div className="chat-body">
           <Comments comments={this.state.comments} />

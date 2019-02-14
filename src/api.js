@@ -189,24 +189,23 @@ export const init = async function (newUser) {
 
 async function getMessage(message, user_manager, user_client) {
   try {
-
-    let nickname, manager;
-
-    if (message.u._id === user_client._id) {
-      nickname = user_client.username;
-      manager = false;
-    } else {
-      nickname = user_manager.username;
-      manager = true;
-    }
-
+    let clientId = localStorage.getItem('mixapp.userId');
     return {
-      nickname: nickname,
+      nickname: message.u.username,
       text: Parser(message.msg.replace(/\n/g, '<br/>')),
       date: getCurrentTime(message.ts),
-      manager: manager
+      manager: message.u._id !== clientId
     };
 
+  } catch (err) {
+    throw err;
+  }
+}
+
+export const isClient = async (member) => {
+  try {
+    let clientId = localStorage.getItem('mixapp.userId');
+    return member._id === clientId;
   } catch (err) {
     throw err;
   }
@@ -215,21 +214,11 @@ async function getMessage(message, user_manager, user_client) {
 export const getMessages = async (roomId, oldest, authToken, userId) => {
   try {
 
-    let user_manager = '';
-    let user_client = '';
     let comments = [];
-    let result_ = await groupsMembers(roomId, authToken, userId);
     let result = await groupsHistory(roomId, oldest, authToken, userId);
-    if (isManager(result_.data.members[0].username)) {
-      user_manager = result_.data.members[1];
-      user_client = result_.data.members[0];
-    } else {
-      user_manager = result_.data.members[0];
-      user_client = result_.data.members[1];
-    }
     result = result.data.messages.reverse();
     for (let i = 0; i < result.length; i++) {
-      comments.push(await getMessage(result[i], user_manager, user_client));
+      comments.push(await getMessage(result[i]));
     }
 
     return comments;
@@ -262,19 +251,10 @@ export const sendToRocketChat = async (roomId, authToken, userId, text) => {
   }
 }
 
-export const isManager = async (nickname) => {
-  try {
-
-    return nickname.indexOf('client') === -1;
-
-  } catch (err) {
-    throw err;
-  }
-}
-
 export const webSocket = async (cb) => {
   try {
 
+    let clientId = localStorage.getItem('mixapp.userId');
     // Stream API
     let authToken = localStorage.getItem('mixapp.token');
     let roomId = localStorage.getItem('mixapp.roomId');
@@ -295,9 +275,8 @@ export const webSocket = async (cb) => {
       try {
         let args = msg.fields.args[0];
         let username = args.u.username;
-        let is_Manager = await isManager(username);
 
-        cb(username, args, is_Manager);
+        cb(username, args, args.u._id !== clientId);
 
       } catch (err) {
         throw err;

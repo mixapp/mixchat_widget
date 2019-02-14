@@ -1,4 +1,12 @@
 import React from 'react';
+import CallSVG from './call_svg';
+import ChatSVG from './chat_svg';
+import FacebookSVG from './facebook_svg';
+import SmsSVG from './sms_svg';
+import TelegramSVG from './telegram_svg';
+import VKSVG from './vk_svg';
+import ViberSVG from './viber_svg';
+import Qbutton from './qButton_svg';
 import './button.css';
 
 const ALIAS = {
@@ -8,6 +16,14 @@ const ALIAS = {
     viber: 'Viber',
     vk: 'Вконтакте'
 };
+
+const SVG = {
+    facebook: <FacebookSVG />,
+    sms: <SmsSVG />,
+    telegram: <TelegramSVG />,
+    vk: <VKSVG />,
+    viber: <ViberSVG />
+}
 
 const getMessengerURI = (type, data) => {
     switch (type) {
@@ -62,7 +78,8 @@ export default class Button extends React.Component {
                 return <a href={item.href} key={i} className="messenger-item">
                     <div className="messenger-title">{item.title}</div>
                     <div className="messenger-icon">
-                        <img src={require(`./${item.name}.svg`)} />
+                        {SVG[item.name]}
+                        {/* <img src={require(`./${item.name}.svg`)} /> */}
                     </div>
                 </a>
             })}
@@ -78,7 +95,7 @@ export default class Button extends React.Component {
                     <div className="messenger-title">Чат с оператором</div>
                     <div className="messenger-icon">
                         <div style={{ background: '#33d9b2' }} className="chat-icon">
-                            <img src={require(`./chat.svg`)} />
+                            <ChatSVG />
                         </div>
                     </div>
                 </div>
@@ -86,14 +103,17 @@ export default class Button extends React.Component {
                     <div className="messenger-title">Обратный звонок</div>
                     <div className="messenger-icon">
                         <div style={{ background: '#227093' }} className="chat-icon">
-                            <img src={require(`./call.svg`)} />
+                            <CallSVG />
                         </div>
                     </div>
                 </div>
                 {this.renderMessengerLinks()}
             </div>
             <div className='qButton' onClick={this.onClickHandler.bind(this)}>
-                <img className='pulse' style={{ background: color }} src={require('./qButton.svg')} />
+                <div className='pulse' style={{ background: color }}>
+                    <Qbutton className='pulse' />
+                </div>
+                {/* <img className='pulse' style={{ background: color }} src={require('./qButton.svg')} /> */}
             </div>
         </div>
     }

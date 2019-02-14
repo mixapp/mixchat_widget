@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CloseSVG from './close_svg';
 import './styles.css';
 
 export default class Wrapper extends Component {
@@ -8,7 +9,7 @@ export default class Wrapper extends Component {
             <div className="title" style={{ backgroundColor: color }}>
                 <div>{this.props.title}</div>
                 <div className="close-btn" onClick={() => { nav('button') }}>
-                    <img src={require('./close.svg')} />
+                    <CloseSVG />
                 </div>
             </div>
             <div className="body">

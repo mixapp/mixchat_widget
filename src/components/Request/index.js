@@ -44,7 +44,7 @@ export default class Request extends Component {
 
     return <Wrapper nav={nav} color={color} title="Обратный звонок">
       {!isSuccess ? <div className="request">
-        <img height="40" src={require('./brain.png')} />
+        <img height="40" src={require('./brain.png')} alt="brain"/>
         <div style={{ width: '80%' }}>
           <p className="info">К сожалению, на данный момент все операторы заняты.
                         Оставьте свое сообщение и мы свяжемся с Вами</p>
@@ -53,7 +53,7 @@ export default class Request extends Component {
           <SimpleButton title="Отправить" onClick={this.onClickHandle.bind(this)} color={color} />
         </div>
       </div> : <div className="request">
-          <img height="40" src={require('./brain.png')} />
+          <img height="40" src={require('./brain.png')} alt="brain"/>
           <div style={{ width: '80%' }}>
             <p className="info">Спасибо, Ваша заявка отправлена. Мы свяжемся с Вами в ближайшее время.</p>
             <SimpleButton title="Закрыть" onClick={this.onCloseHandle.bind(this)} color={color} />

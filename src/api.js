@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Parser from 'html-react-parser';
-import textVersion from 'textversionjs';
 import DDP from 'ddp.js';
 
 const getUrl = (processId, companyId, path) => {

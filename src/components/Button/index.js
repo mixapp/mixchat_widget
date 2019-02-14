@@ -75,7 +75,7 @@ export default class Button extends React.Component {
 
         return <div>
             {result.map((item, i) => {
-                return <a href={item.href} key={i} className="messenger-item">
+                return <a href={item.href} key={i} className="messenger-item" target="_blank">
                     <div className="messenger-title">{item.title}</div>
                     <div className="messenger-icon">
                         {SVG[item.name]}
@@ -87,7 +87,7 @@ export default class Button extends React.Component {
     }
     render() {
         const { showButtons } = this.state;
-        const { nav, color, lastState } = this.props;
+        const { nav, color } = this.props;
         return <div className={(showButtons) ? 'list-visible' : ''}>
 
             <div className={'messenger-list'}>

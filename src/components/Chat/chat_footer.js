@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Parser from 'html-react-parser';
 import textVersion from 'textversionjs';
 import './styles.css';
+import SendButtonSvg from '../Button/send_button_svg';
 import * as Api from '../../api';
 
 class BottomConteinerForm extends Component {
@@ -32,7 +33,7 @@ class BottomConteinerForm extends Component {
 
   async changeComment(event) {
 
-    let elemHTML = document.getElementById('textarea-conteiner').innerHTML;
+    let elemHTML = document.getElementById('textarea-text').innerHTML;
     this.setState({
       commentText: textVersion(elemHTML),
       commentReactObj: Parser(elemHTML)
@@ -45,11 +46,9 @@ class BottomConteinerForm extends Component {
 
   render() {
     return [
-      <div id='textarea-conteiner' key='textarea'>
-        <div id='textarea-text' contentEditable onKeyUp={this.changeComment.bind(this)}></div>
-      </div>,
+      <div key='textarea-text' id='textarea-text' contentEditable onKeyUp={this.changeComment.bind(this)}></div>,
       <div key='send_button' onClick={this.sendComment.bind(this)}>
-        <div className='send-button'></div>
+        <SendButtonSvg />
       </div>
     ]
   }

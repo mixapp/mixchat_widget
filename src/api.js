@@ -190,7 +190,7 @@ async function getMessage(message, user_manager, user_client) {
   try {
     let clientId = localStorage.getItem('mixapp.userId');
     return {
-      nickname: message.u.username,
+      nickname: message.u._id === clientId ? 'Вы' : message.u.username,
       text: Parser(message.msg.replace(/\n/g, '<br/>')),
       date: getCurrentTime(message.ts),
       manager: message.u._id !== clientId

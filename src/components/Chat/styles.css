@@ -21,7 +21,7 @@
 }
 
 .chat-body {
-    height: 300px;
+    height: 320px;
     overflow-y: scroll;
     width: 112%;
     border-bottom: 1px solid #ededed;
@@ -124,7 +124,7 @@ div.avatar-revers>div {
 
 .bottom-conteiner {
     display: flex;
-    margin-top: 10px;
+    margin-top: 0px;
     height: 50px;
 }
 
@@ -152,6 +152,19 @@ div.bottom-conteiner>div:nth-child(2)>img {
     background-color: rgb(162, 205, 255);
     margin-left: 5px;
     cursor: pointer;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+    supported by Chrome and Opera */
 }
 
 @media screen and (max-width: 480px) {
@@ -169,5 +182,8 @@ div.bottom-conteiner>div:nth-child(2)>img {
     }
     .chat-body>div {
         padding-right: 15px;
+    }
+    div.bottom-conteiner>div:nth-child(2) {
+        cursor: none;
     }
 }

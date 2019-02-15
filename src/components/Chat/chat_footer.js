@@ -25,6 +25,7 @@ class BottomConteinerForm extends Component {
     this.setState({
       commentText: ''
     });
+    document.getElementById('textarea-text').innerHTML = '';
 
     return result;
   }
@@ -38,7 +39,6 @@ class BottomConteinerForm extends Component {
     });
 
     if (event.key === 'Enter' && !event.shiftKey) {
-      document.getElementById('textarea-text').innerHTML = '';
       this.sendComment();
     }
   }

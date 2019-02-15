@@ -22,7 +22,7 @@
 
 .chat-body {
     height: 300px;
-    overflow: auto;
+    overflow-y: scroll;
     width: 112%;
 }
 

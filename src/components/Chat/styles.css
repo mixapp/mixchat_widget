@@ -153,3 +153,16 @@ div.bottom-conteiner>div:nth-child(2)>img {
     margin-left: 5px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 480px) {
+    .chat {
+        height: 100%;
+    }
+    .chat-body {
+        height: 91%;
+        width: auto;
+    }
+    .bottom-conteiner {
+        margin-top: 0px;
+    }
+}

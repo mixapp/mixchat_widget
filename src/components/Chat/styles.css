@@ -183,8 +183,8 @@ div.bottom-conteiner>div:nth-child(2)>img {
         flex-direction: column;
     }
     .chat-body {
-        height: auto;
-        width: auto;
+        height: 100%;
+        width: 100%;
     }
     .bottom-conteiner {
         margin-top: 0px;

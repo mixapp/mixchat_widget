@@ -4,10 +4,10 @@ class Avatar extends Component {
   render() {
     let name, classNme;
     if (this.props.manager) {
-      name = "Y";
+      name = "M";
       classNme = "avatar";
     } else {
-      name = "M";
+      name = "U";
       classNme = "avatar-revers";
     }
     return (

@@ -126,6 +126,7 @@ div.avatar-revers>div {
     display: flex;
     margin-top: 0px;
     height: 50px;
+    padding-top: 3px;
 }
 
 div.bottom-conteiner>div:nth-child(1) {

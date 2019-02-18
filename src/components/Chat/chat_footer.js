@@ -16,6 +16,10 @@ class BottomConteinerForm extends Component {
     if (String(this.state.commentText) < 1) {
       return;
     }
+    
+    setTimeout(() => {
+      document.getElementById('textarea-text').innerHTML = '';
+    }, 0);
 
     // Stream API
     let authToken = localStorage.getItem('mixapp.token');
@@ -23,13 +27,12 @@ class BottomConteinerForm extends Component {
     let userId = localStorage.getItem('mixapp.userId');
 
     let result = await Api.sendToRocketChat(roomId, authToken, userId, this.state.commentText);
-
-    this.setState({
-      commentText: ''
-    });
-    document.getElementById('textarea-text').innerHTML = '';
-
-    return result;
+    if (result.data.success) {
+      console.log(this.state.commentText);
+      this.setState({
+        commentText: ''
+      });
+    }
   }
 
   componentDidMount() {
@@ -58,7 +61,7 @@ class BottomConteinerForm extends Component {
 
   render() {
     return [
-      <div key='textarea-text' id='textarea-text' contentEditable onKeyUp={this.changeComment.bind(this)}></div>,
+      <div key='textarea-text' id='textarea-text' contentEditable onKeyDown={this.changeComment.bind(this)}></div>,
       <div key='send_button' onClick={this.sendComment.bind(this)}>
         <SendButtonSvg />
       </div>

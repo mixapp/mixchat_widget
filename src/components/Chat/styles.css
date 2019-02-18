@@ -23,13 +23,21 @@
 .chat-body {
     height: 320px;
     overflow-y: scroll;
-    width: 112%;
     border-bottom: 1px solid #ededed;
+    /* IE */
+    -ms-overflow-style: none;
+    /* FF */
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+}
+
+.chat-body::-webkit-scrollbar {
+    width: 0;
+    -webkit-appearance: none;
 }
 
 .chat-body>div {
-    padding-right: 30px;
-    padding-left: 10px;
+    padding: 0 10px;
 }
 
 div.comment {
@@ -180,9 +188,6 @@ div.bottom-conteiner>div:nth-child(2)>img {
     }
     .bottom-conteiner {
         margin-top: 0px;
-    }
-    .chat-body>div {
-        padding-right: 15px;
     }
     div.bottom-conteiner>div:nth-child(2) {
         cursor: none;

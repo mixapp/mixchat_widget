@@ -45,9 +45,10 @@ export default class Chat extends Component {
     async function addComment(username, args, is_Manager) {
       try {
 
+        console.log(is_Manager);
         this.setState({
           comments: [...this.state.comments, {
-            nickname: username,
+            nickname: is_Manager ? username : "Вы",
             text: Parser(args.msg.replace(/\n/g, '<br/>')),
             date: getCurrentTime(),
             manager: is_Manager

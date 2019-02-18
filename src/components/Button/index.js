@@ -75,7 +75,7 @@ export default class Button extends React.Component {
 
         return <div>
             {result.map((item, i) => {
-                return <a href={item.href} key={i} className="messenger-item" target="_blank">
+                return <a href={item.href} key={i} className="messenger-item" target="_blank" rel="noopener noreferrer"s>
                     <div className="messenger-title">{item.title}</div>
                     <div className="messenger-icon">
                         {SVG[item.name]}

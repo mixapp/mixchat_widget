@@ -35,7 +35,7 @@ class BottomConteinerForm extends Component {
   }
 
   handleBlur = (event) => {
-    console.log(event)
+    //console.log(event)
   }
 
 

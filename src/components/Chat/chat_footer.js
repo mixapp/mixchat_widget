@@ -16,7 +16,7 @@ class BottomConteinerForm extends Component {
     if (String(this.state.commentText) < 1) {
       return;
     }
-    
+
     setTimeout(() => {
       document.getElementById('textarea-text').innerHTML = '';
     }, 0);
@@ -33,6 +33,11 @@ class BottomConteinerForm extends Component {
       });
     }
   }
+
+  handleBlur = (event) => {
+    console.log(event)
+  }
+
 
   componentDidMount() {
     window.mobilecheck = function () {
@@ -61,7 +66,7 @@ class BottomConteinerForm extends Component {
 
   render() {
     return [
-      <div key='textarea-text' id='textarea-text' contentEditable onKeyDown={this.changeComment.bind(this)}></div>,
+      <div key='textarea-text' id='textarea-text' contentEditable onKeyDown={this.changeComment.bind(this)} onBlur={this.handleBlur.bind(this)}></div>,
       <div key='send_button' onClick={this.sendComment.bind(this)}>
         <SendButtonSvg />
       </div>

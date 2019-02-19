@@ -193,3 +193,8 @@ div.bottom-conteiner>div:nth-child(2)>img {
         cursor: none;
     }
 }
+
+[contentEditable=true]:empty:not(:focus):before {
+    content: attr(data-placeholder);
+    color: lightgray;
+}

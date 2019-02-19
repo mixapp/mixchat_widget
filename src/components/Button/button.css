@@ -1,14 +1,15 @@
 .chat-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
+
 .chat-icon img {
-  width: 24px;
-  height: 24px;
+    width: 24px;
+    height: 24px;
 }
 
 .qButton {
@@ -28,94 +29,104 @@
     cursor: pointer;
     box-shadow: 0 0 0 #4a90e2;
     animation: pulse 1.5s infinite;
-  }
-  
-  .pulse:hover {
+}
+
+.pulse:hover {
     animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     perspective: 1000px;
-  }
+}
 
 .messenger-list {
-  position: fixed;
-  right: 40px;
-  bottom: 110px;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.5s, visibility 0.5s;
+    position: fixed;
+    right: 40px;
+    bottom: 110px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
 }
 
 .list-visible .messenger-list {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.5s, visibility 0.5s;
-  z-index: 9999;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s, visibility 0.5s;
+    z-index: 9999;
 }
 
 .messenger-item {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 20px;
-  cursor: pointer;
-  text-decoration: none;
-  color: black;
-  font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    font-family: 'Roboto', sans-serif;
 }
 
 .messenger-title {
-  text-decoration: none;
-  color: black;
-  margin-right: 15px;
-  font-size: 14px;
+    text-decoration: none;
+    color: black;
+    margin-right: 10px;
+    font-size: 13px;
+    background: #fff;
+    border-radius: 15px;
+    opacity: 0.9;
+    padding: 3px 9px 3px 7px;
 }
 
 .messenger-icon {
-  width: 40px;
-  border-radius: 50%;
-  height: 40px;
-  overflow: hidden;
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+    overflow: hidden;
 }
-
 
 @-webkit-keyframes pulse {
-  0% {
-    -webkit-box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
-  }
-  70% {
-    -webkit-box-shadow: 0 0 0 30px rgba(74, 144, 226, 0);
-  }
-  100% {
-    -webkit-box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
-  }
+    0% {
+        -webkit-box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+    }
+    70% {
+        -webkit-box-shadow: 0 0 0 30px rgba(74, 144, 226, 0);
+    }
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
+    }
 }
+
 @keyframes pulse {
-  0% {
-    -moz-box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
-    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
-  }
-  70% {
-    -moz-box-shadow: 0 0 0 30px rgba(74, 144, 226, 0);
-    box-shadow: 0 0 0 30px rgba(74, 144, 226, 0);
-  }
-  100% {
-    -moz-box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
-    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
-  }
+    0% {
+        -moz-box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+        box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 30px rgba(74, 144, 226, 0);
+        box-shadow: 0 0 0 30px rgba(74, 144, 226, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
+        box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
+    }
 }
+
 @keyframes shake {
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
-  }
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
 }

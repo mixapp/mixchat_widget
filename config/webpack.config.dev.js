@@ -371,7 +371,7 @@ module.exports = {
       fileName: 'asset-manifest.json',
       publicPath: publicPath,
     }),
-    new BundleAnalyzerPlugin()
+    //new BundleAnalyzerPlugin()
   ],
 
   // Some libraries import Node modules but don't use them in the browser.

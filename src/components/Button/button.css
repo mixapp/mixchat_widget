@@ -17,6 +17,7 @@
     height: 60px;
     bottom: 40px;
     right: 30px;
+    z-index: 9999;
 }
 
 .pulse {
@@ -49,6 +50,7 @@
   visibility: visible;
   opacity: 1;
   transition: opacity 0.5s, visibility 0.5s;
+  z-index: 9999;
 }
 
 .messenger-item {

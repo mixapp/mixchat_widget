@@ -39,16 +39,16 @@ export default class Callback extends Component {
     const { isSuccess, phone } = this.state;
     return <Wrapper nav={nav} color={color} title="Обратный звонок">
       {!isSuccess ? <div className="callback">
-        <p className="info">Укажите ваш контактный телефон и мы свяжемся с вами
+        <p className="info" style={{ width: '80%' }}>Укажите ваш контактный телефон и мы свяжемся с вами
                 в течении нескольких минут</p>
         <div style={{ width: '80%' }}>
           <Input value={phone} onChange={this.onChange.bind(this)} title="Телефон" placeholder="+7 (999) 999-99-99" />
         </div>
-        <div style={{ width: '80%', marginTop: '20px' }}>
+        <div style={{ width: '80%', marginTop: '20px', display: 'flex', flexDirection: 'column' }}>
           <SimpleButton title="Позвонить" onClick={this.onClickHandle.bind(this)} color={color} />
         </div>
       </div> : <div className="callback">
-          <div style={{ width: '80%' }}>
+          <div style={{ width: '80%', display: 'flex', flexDirection: 'column' }}>
             <p className="info">Спасибо, наш оператор перезвонит Вам через несколько минут.</p>
             <SimpleButton title="Закрыть" onClick={this.onCloseHandle.bind(this)} color={color} />
           </div>

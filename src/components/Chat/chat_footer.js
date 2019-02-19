@@ -13,7 +13,7 @@ class BottomConteinerForm extends Component {
   }
 
   async sendComment() {
-    if (String(this.state.commentText) < 1) {
+    if (String(this.state.commentText) > 0) {
       return;
     }
 

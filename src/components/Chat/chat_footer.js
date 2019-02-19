@@ -6,14 +6,27 @@ import SendButtonSvg from '../Button/send_button_svg';
 import * as Api from '../../api';
 
 class BottomConteinerForm extends Component {
+  constructor(props) {
+    super(props);
+    // create a ref to store the textInput DOM element
+    this.textInput = React.createRef();
+    this.focus = this.focus.bind(this);
+  }
+
   state = {
     commentText: '',
     commentReactObj: '',
     mobile: false
   }
 
+  focus() {
+    // Explicitly focus the text input using the raw DOM API
+    // Note: we're accessing "current" to get the DOM node
+    this.textInput.current.focus();
+  }
+
   async sendComment() {
-    if (String(this.state.commentText) > 0) {
+    if (String(this.state.commentText).length < 1) {
       return;
     }
 
@@ -35,7 +48,7 @@ class BottomConteinerForm extends Component {
   }
 
   handleBlur = (event) => {
-    //console.log(event)
+    this.focus();
   }
 
 
@@ -66,7 +79,7 @@ class BottomConteinerForm extends Component {
 
   render() {
     return [
-      <div key='textarea-text' id='textarea-text' data-placeholder='Введите сообщение…' contentEditable onKeyDown={this.changeComment.bind(this)} onBlur={this.handleBlur.bind(this)}></div>,
+      <div key='textarea-text' ref={this.textInput} id='textarea-text' data-placeholder='Введите сообщение…' contentEditable onKeyDown={this.changeComment.bind(this)} onBlur={this.handleBlur.bind(this)}></div>,
       <div key='send_button' onClick={this.sendComment.bind(this)}>
         <SendButtonSvg />
       </div>

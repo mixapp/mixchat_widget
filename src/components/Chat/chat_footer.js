@@ -47,10 +47,13 @@ class BottomConteinerForm extends Component {
     }
   }
 
-  handleBlur = (event) => {
+  handleBlur = () => {
     this.focus();
   }
 
+  handleFocus = () => {
+    document.getElementsByClassName('chat-body')[0].scrollTop = document.getElementsByClassName('chat-body')[0].scrollHeight;
+  }
 
   componentDidMount() {
     window.mobilecheck = function () {
@@ -79,7 +82,7 @@ class BottomConteinerForm extends Component {
 
   render() {
     return [
-      <div key='textarea-text' ref={this.textInput} id='textarea-text' data-placeholder='Введите сообщение…' contentEditable onKeyUp={this.changeComment.bind(this)} onBlur={this.handleBlur.bind(this)}></div>,
+      <div key='textarea-text' ref={this.textInput} id='textarea-text' data-placeholder='Введите сообщение…' contentEditable onKeyUp={this.changeComment.bind(this)} onBlur={this.handleBlur.bind(this)} onFocus={this.handleFocus.bind(this)}></div>,
       <div key='send_button' onClick={this.sendComment.bind(this)}>
         <SendButtonSvg />
       </div>

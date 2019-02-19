@@ -130,3 +130,14 @@
         transform: translate3d(4px, 0, 0);
     }
 }
+
+@media screen and (max-width: 480px) {
+    .messenger-list {
+        right: 18px;
+        bottom: 75px;
+    }
+    .qButton {
+        right: 10px;
+        bottom: 15px;
+    }
+}

@@ -45,13 +45,13 @@
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.5s, visibility 0.5s;
+    z-index: 9999;
 }
 
 .list-visible .messenger-list {
     visibility: visible;
     opacity: 1;
     transition: opacity 0.5s, visibility 0.5s;
-    z-index: 9999;
 }
 
 .messenger-item {

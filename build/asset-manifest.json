@@ -1,0 +1,7 @@
+{
+  "main.js": "/widget.js",
+  "main.js.map": "/widget.js.map",
+  "index.html": "/index.html",
+  "precache-manifest.df694668f77e9aa3d4e40afd93de0826.js": "/precache-manifest.df694668f77e9aa3d4e40afd93de0826.js",
+  "service-worker.js": "/service-worker.js"
+}

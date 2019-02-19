@@ -79,7 +79,7 @@ class BottomConteinerForm extends Component {
 
   render() {
     return [
-      <div key='textarea-text' ref={this.textInput} id='textarea-text' data-placeholder='Введите сообщение…' contentEditable onKeyDown={this.changeComment.bind(this)} onBlur={this.handleBlur.bind(this)}></div>,
+      <div key='textarea-text' ref={this.textInput} id='textarea-text' data-placeholder='Введите сообщение…' contentEditable onKeyUp={this.changeComment.bind(this)} onBlur={this.handleBlur.bind(this)}></div>,
       <div key='send_button' onClick={this.sendComment.bind(this)}>
         <SendButtonSvg />
       </div>

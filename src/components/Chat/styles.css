@@ -177,13 +177,20 @@ div.bottom-conteiner>div:nth-child(2)>img {
 }
 
 @media screen and (max-width: 480px) {
+    body {
+        margin: 0;
+    }
+    #widget_omni_chanel {
+        height: 100vh;
+        width: 100vh;
+    }
     .chat {
         height: 100%;
         display: flex;
         flex-direction: column;
     }
     .chat-body {
-        height: 100%;
+        height: 100vh;
         width: 100%;
     }
     .bottom-conteiner {

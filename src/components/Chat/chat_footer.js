@@ -10,19 +10,12 @@ class BottomConteinerForm extends Component {
     super(props);
     // create a ref to store the textInput DOM element
     this.textInput = React.createRef();
-    this.focus = this.focus.bind(this);
   }
 
   state = {
     commentText: '',
     commentReactObj: '',
     mobile: false
-  }
-
-  focus() {
-    // Explicitly focus the text input using the raw DOM API
-    // Note: we're accessing "current" to get the DOM node
-    this.textInput.current.focus();
   }
 
   async sendComment() {
@@ -48,11 +41,12 @@ class BottomConteinerForm extends Component {
   }
 
   handleBlur = () => {
-    this.focus();
+    this.textInput.current.focus();
   }
 
   handleFocus = () => {
-    document.getElementsByClassName('chat-body')[0].scrollTop = document.getElementsByClassName('chat-body')[0].scrollHeight;
+    let chatBody = this.props.chatBody.current;
+    chatBody.scrollTop = chatBody.scrollHeight;
   }
 
   componentDidMount() {
@@ -94,7 +88,7 @@ export default class BottomConteiner extends Component {
   render() {
     return (
       <div className='bottom-conteiner'>
-        <BottomConteinerForm />
+        <BottomConteinerForm chatBody={this.props.chatBody} />
       </div>
     )
   }

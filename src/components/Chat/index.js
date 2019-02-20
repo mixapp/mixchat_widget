@@ -8,6 +8,11 @@ import BottomConteiner from './chat_footer';
 import './styles.css';
 
 export default class Chat extends Component {
+  constructor(props) {
+    super(props)
+    this.chatBody = React.createRef();
+  }
+
   state = {
     isLoading: true,
     comments: []
@@ -78,11 +83,11 @@ export default class Chat extends Component {
     const { isLoading } = this.state;
     return <Wrapper nav={nav} color={color} title="Чат с оператором">
       {isLoading ? (<Loader color={color} />) : (<div className="chat">
-        <div className="chat-body">
+        <div ref={this.chatBody} className="chat-body">
           <Comments comments={this.state.comments} />
         </div>
         <div className="chat-footer">
-          <BottomConteiner />
+          <BottomConteiner chatBody={this.chatBody} />
         </div>
       </div>)}
     </Wrapper>

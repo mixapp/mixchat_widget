@@ -6,12 +6,6 @@ import SendButtonSvg from '../Button/send_button_svg';
 import * as Api from '../../api';
 
 class BottomConteinerForm extends Component {
-  constructor(props) {
-    super(props);
-    // create a ref to store the textInput DOM element
-    this.textInput = React.createRef();
-  }
-
   state = {
     commentText: '',
     commentReactObj: '',
@@ -40,16 +34,13 @@ class BottomConteinerForm extends Component {
     }
   }
 
-  handleBlur = () => {
-    this.textInput.current.focus();
-  }
-
-  handleFocus = () => {
+  windowResize = () => {
     let chatBody = this.props.chatBody.current;
     chatBody.scrollTop = chatBody.scrollHeight;
   }
 
   componentDidMount() {
+    window.addEventListener('resize', this.windowResize.bind(this));
     window.mobilecheck = function () {
       var check = false;
       // eslint-disable-next-line
@@ -59,6 +50,10 @@ class BottomConteinerForm extends Component {
     this.setState({
       mobile: window.mobilecheck()
     });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.windowResize.bind(this))
   }
 
   async changeComment(event) {
@@ -76,7 +71,7 @@ class BottomConteinerForm extends Component {
 
   render() {
     return [
-      <div key='textarea-text' ref={this.textInput} id='textarea-text' data-placeholder='Введите сообщение…' contentEditable onKeyUp={this.changeComment.bind(this)} onBlur={this.handleBlur.bind(this)} onFocus={this.handleFocus.bind(this)}></div>,
+      <div key='textarea-text' id='textarea-text' data-placeholder='Введите сообщение…' contentEditable onKeyUp={this.changeComment.bind(this)}></div>,
       <div key='send_button' onClick={this.sendComment.bind(this)}>
         <SendButtonSvg />
       </div>

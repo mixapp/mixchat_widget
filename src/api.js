@@ -217,8 +217,8 @@ export const getMessages = async (roomId, oldest, authToken, userId) => {
     let result = await groupsHistory(roomId, oldest, authToken, userId);
     result = result.data.messages.reverse();
     for (let i = 0; i < result.length; i++) {
-      if (result[i].parseUrls)
-        comments.push(await getMessage(result[i]));
+      //if (result[i].parseUrls) TODO message filter
+      comments.push(await getMessage(result[i]));
     }
 
     return comments;

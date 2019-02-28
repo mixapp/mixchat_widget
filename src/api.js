@@ -112,8 +112,15 @@ export const groupsHistory = async (roomId, oldest, authToken, userId) => {
         'X-Auth-Token': authToken,
         'X-User-Id': userId
       }
+    });
+    let { messages } = result.data;
+    let messages_ = [];
+    for (let i = 0; i < messages.length; i++) {
+      if (messages[i].parseUrls) {
+        messages_.push(messages[i]);
+      }
     }
-    );
+    result.data.messages = messages_;
     return result;
 
   } catch (err) {

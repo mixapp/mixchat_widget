@@ -191,7 +191,7 @@ export const init = async function (newUser) {
     };
 
   } catch (error) {
-    console.error(error);
+    return error;
   }
 }
 

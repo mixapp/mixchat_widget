@@ -20,15 +20,27 @@ export default class Chat extends Component {
 
   async componentDidMount() {
     const { nav } = this.props;
+    let result;
+    let userId = localStorage.getItem('mixapp.userId');
+    let roomId = localStorage.getItem('mixapp.roomId');
+    let token = localStorage.getItem('mixapp.token');
+
+    let groupsMembers = await Api.groupsMembers(roomId, token, userId);
+    if (!groupsMembers.data) {
+      result = await Api.init(true);
+      groupsMembers = await Api.groupsMembers(result.roomId, result.token, result.userId);
+    } else {
+      result = await Api.init();
+    }
 
     /* Проверяем userId и roomId из cookies*/
-    let result = await Api.init();
+    //let result = await Api.init();
 
     /* Если token не вернули, создаём нового юзера и получаем новый token */
-    if (!result.token) result = await Api.init(true);
+    //if (!result.token) result = await Api.init(true);
 
     /* Проверяем наличие менеджера в чате */
-    let groupsMembers = await Api.groupsMembers(result.roomId, result.token, result.userId);
+    //let groupsMembers = await Api.groupsMembers(result.roomId, result.token, result.userId);
 
     if (groupsMembers.data.members.length < 2 || result.msg.error) {
       // Если операторов нет, переходим на страницу заявки 

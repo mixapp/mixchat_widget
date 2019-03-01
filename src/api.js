@@ -96,7 +96,7 @@ export const groupsMembers = async (roomId, authToken, userId) => {
     return result;
 
   } catch (err) {
-    throw err;
+    return err;
   }
 }
 

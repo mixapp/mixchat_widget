@@ -17,6 +17,10 @@ export const config = {
   frontApiProcessId: '5bc49dd735b38203254872a5'
 };
 
+export function getConfig() {
+  return Object.assign({}, config);
+}
+
 function getCurrentTime(date) {
   return new Date(date).toLocaleTimeString('en-GB', {
     hour: "numeric",

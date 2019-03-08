@@ -34,7 +34,7 @@ const getRURI = (companyId, URL) => {
 const getMessengerURI = (type, data) => {
   switch (type) {
     case 'facebook':
-      return `https://facebook.com/${data}`;
+      return `https://www.messenger.com/${data}`;
     case 'sms':
       return isMobile ? `sms:+${data}` : null;
     case 'telegram':

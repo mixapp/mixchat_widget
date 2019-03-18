@@ -7,14 +7,15 @@ const getUrl = (processId, companyId, path) => {
 }
 
 const getRocketChatURL = () => {
-  //return 'api.mixapp.io/chat';
-  return 'chat.mixapp.io';
+  //return 'http://chat.appjs.site:3000';
+  return 'https://chat.mixapp.io';
 }
 
 export const config = {
   companyId: '',
-  backApiProcessId: '5bc49dd0574e7403e22ec1a0',
-  frontApiProcessId: '5bc49dd735b38203254872a5'
+  processId: '5c890db9574e7435772c4773',
+  backApiProcessId: '5c890db9574e7435772c4773',
+  frontApiProcessId: '5c890db9574e7435772c4773',
 };
 
 export function getConfig() {
@@ -67,7 +68,7 @@ export const fetchSettings = async () => {
 export const groupsInfo = async (roomId, authToken, userId) => {
   try {
 
-    let result = await axios.get('https://' + getRocketChatURL() + '/api/v1/groups.info', {
+    let result = await axios.get(getRocketChatURL() + '/api/v1/groups.info', {
       params: {
         roomId: roomId
       },
@@ -87,7 +88,7 @@ export const groupsInfo = async (roomId, authToken, userId) => {
 export const groupsMembers = async (roomId, authToken, userId) => {
   try {
 
-    let result = await axios.get('https://' + getRocketChatURL() + '/api/v1/groups.members', {
+    let result = await axios.get(getRocketChatURL() + '/api/v1/groups.members', {
       params: {
         roomId: roomId
       },
@@ -107,7 +108,7 @@ export const groupsMembers = async (roomId, authToken, userId) => {
 export const groupsHistory = async (roomId, oldest, authToken, userId) => {
   try {
 
-    let result = await axios.get('https://' + getRocketChatURL() + '/api/v1/groups.history', {
+    let result = await axios.get(getRocketChatURL() + '/api/v1/groups.history', {
       params: {
         roomId: roomId,
         oldest: oldest
@@ -249,7 +250,7 @@ export const sendToRocketChat = async (roomId, authToken, userId, text) => {
 
     let result = await axios({
       method: 'POST',
-      url: 'https://' + getRocketChatURL() + '/api/v1/chat.postMessage',
+      url: getRocketChatURL() + '/api/v1/chat.postMessage',
       data: {
         roomId: roomId,
         text: text

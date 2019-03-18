@@ -28,7 +28,7 @@ const SVG = {
 
 const isMobile = Api.isMobile();
 const getRURI = (companyId, URL) => {
-  return 'https://api.mixapp.io/webhooks/mixapp/5bc49dd0574e7403e22ec1a0/' + companyId + '/stats?url=' + URL
+  return 'https://api.mixapp.io/webhooks/mixapp/' + Api.config.processId + '/' + companyId + '/stats?url=' + URL
 }
 
 const getMessengerURI = (type, data) => {

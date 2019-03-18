@@ -7,8 +7,8 @@ const getUrl = (processId, companyId, path) => {
 }
 
 const getRocketChatURL = () => {
-  //return 'http://chat.appjs.site:3000';
-  return 'https://chat.mixapp.io';
+  //return 'chat.appjs.site';
+  return 'chat.mixapp.io';
 }
 
 export const config = {
@@ -68,7 +68,7 @@ export const fetchSettings = async () => {
 export const groupsInfo = async (roomId, authToken, userId) => {
   try {
 
-    let result = await axios.get(getRocketChatURL() + '/api/v1/groups.info', {
+    let result = await axios.get(`https://${getRocketChatURL()}/api/v1/groups.info`, {
       params: {
         roomId: roomId
       },
@@ -88,7 +88,7 @@ export const groupsInfo = async (roomId, authToken, userId) => {
 export const groupsMembers = async (roomId, authToken, userId) => {
   try {
 
-    let result = await axios.get(getRocketChatURL() + '/api/v1/groups.members', {
+    let result = await axios.get(`https://${getRocketChatURL()}/api/v1/groups.members`, {
       params: {
         roomId: roomId
       },
@@ -108,7 +108,7 @@ export const groupsMembers = async (roomId, authToken, userId) => {
 export const groupsHistory = async (roomId, oldest, authToken, userId) => {
   try {
 
-    let result = await axios.get(getRocketChatURL() + '/api/v1/groups.history', {
+    let result = await axios.get(`https://${getRocketChatURL()}/api/v1/groups.history`, {
       params: {
         roomId: roomId,
         oldest: oldest
@@ -250,7 +250,7 @@ export const sendToRocketChat = async (roomId, authToken, userId, text) => {
 
     let result = await axios({
       method: 'POST',
-      url: getRocketChatURL() + '/api/v1/chat.postMessage',
+      url: `https://${getRocketChatURL()}/api/v1/chat.postMessage`,
       data: {
         roomId: roomId,
         text: text
@@ -278,7 +278,7 @@ export const webSocket = async (cb) => {
 
     // socket connection
     const options = {
-      endpoint: 'wss://' + getRocketChatURL() + '/websocket',
+      endpoint: `wss://${getRocketChatURL()}/websocket`,
       SocketConstructor: WebSocket
     };
     const ddp = new DDP(options);

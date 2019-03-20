@@ -33,15 +33,6 @@ export default class Chat extends Component {
       result = await Api.init();
     }
 
-    /* Проверяем userId и roomId из cookies*/
-    //let result = await Api.init();
-
-    /* Если token не вернули, создаём нового юзера и получаем новый token */
-    //if (!result.token) result = await Api.init(true);
-
-    /* Проверяем наличие менеджера в чате */
-    //let groupsMembers = await Api.groupsMembers(result.roomId, result.token, result.userId);
-
     if (groupsMembers.data.members.length < 2 || result.msg.error || result.msg.offline) {
       // Если операторов нет, переходим на страницу заявки 
       return nav('request');

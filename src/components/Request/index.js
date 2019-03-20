@@ -43,7 +43,7 @@ export default class Request extends Component {
     const { nav, color } = this.props;
     const { email, message, isSuccess } = this.state;
 
-    return <Wrapper nav={nav} color={color} title="Обратный звонок">
+    return <Wrapper nav={nav} color={color} title="Оставьте своё сообщение">
       {!isSuccess ? <div className="request">
         <img height="40" src={require('./brain.png')} alt="brain"/>
         <div style={{ width: '80%' }}>

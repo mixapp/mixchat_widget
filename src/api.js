@@ -13,9 +13,7 @@ const getRocketChatURL = () => {
 
 export const config = {
   companyId: '',
-  processId: '5c890db9574e7435772c4773',
-  backApiProcessId: '5c890db9574e7435772c4773',
-  frontApiProcessId: '5c890db9574e7435772c4773',
+  processId: '5c890db9574e7435772c4773'
 };
 
 export function getConfig() {
@@ -31,7 +29,7 @@ function getCurrentTime(date) {
 
 export const sentRequest = async (email, message) => {
   try {
-    const uri = getUrl(config.backApiProcessId, config.companyId, 'requests');
+    const uri = getUrl(config.processId, config.companyId, 'requests');
     let result = await axios.post(uri, {
       email,
       message
@@ -44,7 +42,7 @@ export const sentRequest = async (email, message) => {
 
 export const sentCallbackRequest = async (phone) => {
   try {
-    const uri = getUrl(config.backApiProcessId, config.companyId, 'callback');
+    const uri = getUrl(config.processId, config.companyId, 'callback');
     let result = await axios.post(uri, {
       phone
     });
@@ -57,7 +55,7 @@ export const sentCallbackRequest = async (phone) => {
 // Fetch widget settings by company
 export const fetchSettings = async () => {
   try {
-    const uri = getUrl(config.backApiProcessId, config.companyId, 'widget');
+    const uri = getUrl(config.processId, config.companyId, 'widget');
     let result = await axios.get(uri);
     return result.data.result;
   } catch (err) {
@@ -135,7 +133,7 @@ export const groupsHistory = async (roomId, oldest, authToken, userId) => {
 
 export const regClient = async () => {
   try {
-    const uri = getUrl(config.frontApiProcessId, config.companyId, 'reg-client');
+    const uri = getUrl(config.processId, config.companyId, 'reg-client');
     let result = await axios.post(uri);
     return result;
   } catch (err) {
@@ -145,7 +143,7 @@ export const regClient = async () => {
 
 export const startChat = async (userId, roomId) => {
   try {
-    const uri = getUrl(config.frontApiProcessId, config.companyId, 'start-chat');
+    const uri = getUrl(config.processId, config.companyId, 'start-chat');
     let result = await axios.post(uri, {
       userId: userId,
       roomId: roomId

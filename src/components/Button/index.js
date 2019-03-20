@@ -30,7 +30,6 @@ const isMobile = Api.isMobile();
 const getRURI = (companyId, URL) => {
   return 'https://api.mixapp.io/webhooks/mixapp/' + Api.config.processId + '/' + companyId + '/stats?url=' + URL
 }
-
 const getMessengerURI = (type, data) => {
   switch (type) {
     case 'facebook':
@@ -108,7 +107,7 @@ export default class Button extends React.Component {
             </div>
           </div>
         </div>
-        <div className="messenger-item" onClick={() => { nav('callback') }}>
+        {/*         <div className="messenger-item" onClick={() => { nav('callback') }}>
           <div className="messenger-title">Обратный звонок</div>
           <div className="messenger-icon">
             <div style={{ background: '#227093' }} className="chat-icon">
@@ -116,7 +115,7 @@ export default class Button extends React.Component {
             </div>
           </div>
         </div>
-        {this.renderMessengerLinks()}
+ */}        {this.renderMessengerLinks()}
       </div>
       <div className='qButton' onClick={this.onClickHandler.bind(this)}>
         <div className='pulse' style={{ background: color }}>

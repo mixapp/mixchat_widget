@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CloseSVG from './close_svg';
 import './styles.css';
+import * as Api from '../../api';
 
 export default class Wrapper extends Component {
     render() {
@@ -8,7 +9,7 @@ export default class Wrapper extends Component {
         return <div className="container">
             <div className="title" style={{ backgroundColor: color }}>
                 <div>{this.props.title}</div>
-                <div className="close-btn" onClick={() => { nav('button') }}>
+                <div className="close-btn" onClick={() => { Api.callWebhook('jivo_onClose'); nav('button') }}>
                     <CloseSVG />
                 </div>
             </div>

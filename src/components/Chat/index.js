@@ -54,14 +54,19 @@ export default class Chat extends Component {
     async function addComment(username, args, is_Manager) {
       try {
 
+        let comment = {
+          nickname: is_Manager ? username : "Вы",
+          text: Parser(args.msg.replace(/\n/g, '<br/>')),
+          date: getCurrentTime(),
+          manager: is_Manager
+        };
         this.setState({
-          comments: [...this.state.comments, {
-            nickname: is_Manager ? username : "Вы",
-            text: Parser(args.msg.replace(/\n/g, '<br/>')),
-            date: getCurrentTime(),
-            manager: is_Manager
-          }]
+          comments: [...this.state.comments, comment]
         })
+
+        if (this.state.comments.length === 1) {
+          Api.callWebhook('jivo_onMessageSent', comment)
+        }
 
       } catch (err) {
         throw err;
@@ -73,6 +78,7 @@ export default class Chat extends Component {
     this.setState({
       isLoading: false
     });
+    Api.callWebhook('jivo_onOpen', { naem: 'web', title: 'Чат с оператором' });
   }
 
   async componentDidUpdate() {

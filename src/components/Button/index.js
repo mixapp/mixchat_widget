@@ -27,9 +27,6 @@ const SVG = {
 }
 
 const isMobile = Api.isMobile();
-const getRURI = (companyId, URL) => {
-  return 'https://api.mixapp.io/webhooks/mixapp/' + Api.config.processId + '/' + companyId + '/stats?url=' + URL
-}
 const getMessengerURI = (type, data) => {
   switch (type) {
     case 'facebook':
@@ -71,28 +68,36 @@ export default class Button extends React.Component {
         continue;
       }
 
-
       if (isMobile || (!isMobile && ALIAS[prop] !== 'SMS')) {
         result.push({
           title: ALIAS[prop],
           name: prop,
-          href: getRURI(Api.getConfig().companyId, getMessengerURI(prop, messengers[prop]))
+          href: getMessengerURI(prop, messengers[prop])
         });
       }
     }
 
     return <div>
       {result.map((item, i) => {
-        return <a href={item.href} key={i} className="messenger-item" target="_blank" rel="noopener noreferrer" s>
+        function sendStats() {
+          Api.callWebhook('jivo_onOpen', {
+            ...item
+          });
+        }
+        return <a onClick={sendStats} href={item.href} key={i} className="messenger-item" target="_blank" rel="noopener noreferrer" s>
           <div className="messenger-title">{item.title}</div>
           <div className="messenger-icon">
             {SVG[item.name]}
-            {/* <img src={require(`./${item.name}.svg`)} /> */}
           </div>
         </a>
       })}
     </div>
   }
+
+  componentDidMount() {
+    Api.callWebhook('jivo_onLoadCallback');
+  }
+
   render() {
     const { showButtons } = this.state;
     const { nav, color } = this.props;
@@ -107,21 +112,24 @@ export default class Button extends React.Component {
             </div>
           </div>
         </div>
-        {/*         <div className="messenger-item" onClick={() => { nav('callback') }}>
-          <div className="messenger-title">Обратный звонок</div>
-          <div className="messenger-icon">
-            <div style={{ background: '#227093' }} className="chat-icon">
-              <CallSVG />
+        {
+          /*
+          <div className="messenger-item" onClick={() => { nav('callback') }}>
+            <div className="messenger-title">Обратный звонок</div>
+            <div className="messenger-icon">
+              <div style={{ background: '#227093' }} className="chat-icon">
+                <CallSVG />
+              </div>
             </div>
           </div>
-        </div>
- */}        {this.renderMessengerLinks()}
+          */
+        }
+        {this.renderMessengerLinks()}
       </div>
       <div className='qButton' onClick={this.onClickHandler.bind(this)}>
         <div className='pulse' style={{ background: color }}>
           <Qbutton className='pulse' />
         </div>
-        {/* <img className='pulse' style={{ background: color }} src={require('./qButton.svg')} /> */}
       </div>
     </div>
   }

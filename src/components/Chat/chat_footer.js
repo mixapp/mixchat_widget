@@ -22,12 +22,10 @@ class BottomConteinerForm extends Component {
     }, 0);
 
     // Stream API
-    let authToken = localStorage.getItem('mixapp.token');
     let roomId = localStorage.getItem('mixapp.roomId');
-    let userId = localStorage.getItem('mixapp.userId');
 
-    let result = await Api.sendToRocketChat(roomId, authToken, userId, this.state.commentText);
-    if (result.data.success) {
+    let result = await Api.sendToRocketChatWebSocket(roomId, this.state.commentText);
+    if (result > 0) {
       this.setState({
         commentText: ''
       });

@@ -108,10 +108,11 @@ export const groupsMembers = async (roomId, authToken, userId) => {
   }
 }
 
+/* move to the sockets */
 export const groupsHistory = async (roomId, oldest, authToken, userId) => {
   try {
 
-    let result = await axios.get(`https://${getRocketChatURL()}/api/v1/groups.history`, {
+    return axios.get(`https://${getRocketChatURL()}/api/v1/groups.history`, {
       params: {
         roomId: roomId,
         oldest: oldest
@@ -121,15 +122,6 @@ export const groupsHistory = async (roomId, oldest, authToken, userId) => {
         'X-User-Id': userId
       }
     });
-    let { messages } = result.data;
-    let messages_ = [];
-    for (let i = 0; i < messages.length; i++) {
-      if (messages[i].parseUrls) {
-        messages_.push(messages[i]);
-      }
-    }
-    result.data.messages = messages_;
-    return result;
 
   } catch (err) {
     throw err;
@@ -232,7 +224,6 @@ export const isClient = async (member) => {
 
 export const getMessages = async (roomId, oldest, authToken, userId) => {
   try {
-
     let comments = [];
     let result = await groupsHistory(roomId, oldest, authToken, userId);
     result = result.data.messages.reverse();
@@ -247,59 +238,47 @@ export const getMessages = async (roomId, oldest, authToken, userId) => {
   }
 }
 
-export const sendToRocketChat = async (roomId, authToken, userId, text) => {
-  try {
+var DDP_;
+export const createSocket = async (cb) => {
+  // Stream API
+  let authToken = localStorage.getItem('mixapp.token');
+  let roomId = localStorage.getItem('mixapp.roomId');
 
-    return axios({
-      method: 'POST',
-      url: `https://${getRocketChatURL()}/api/v1/chat.postMessage`,
-      data: {
-        roomId: roomId,
-        text: text
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Auth-Token': authToken,
-        'X-User-Id': userId
-      }
-    });
+  // socket connection
+  const options = {
+    endpoint: `wss://${getRocketChatURL()}/websocket`,
+    SocketConstructor: WebSocket
+  };
+  const ddp = new DDP(options);
 
-  } catch (err) {
-    throw err;
-  }
+  ddp.on('connected', () => {
+    ddp.method('login', [{ resume: authToken }]);
+    ddp.sub('stream-room-messages', [roomId, false]);
+  });
+
+  let clientId = localStorage.getItem('mixapp.userId');
+  ddp.on('changed', async (msg) => {
+    try {
+      let args = msg.fields.args[0];
+      let username = args.u.username;
+
+      cb(username, args, args.u._id !== clientId);
+
+    } catch (err) {
+      throw err;
+    }
+  })
+  DDP_ = ddp;
+  return ddp;
 }
 
-export const webSocket = async (cb) => {
+export const sendToRocketChatWebSocket = async (roomId, text) => {
   try {
 
-    let clientId = localStorage.getItem('mixapp.userId');
-    // Stream API
-    let authToken = localStorage.getItem('mixapp.token');
-    let roomId = localStorage.getItem('mixapp.roomId');
-
-    // socket connection
-    const options = {
-      endpoint: `wss://${getRocketChatURL()}/websocket`,
-      SocketConstructor: WebSocket
-    };
-    const ddp = new DDP(options);
-
-    ddp.on('connected', () => {
-      ddp.method('login', [{ resume: authToken }]);
-      ddp.sub('stream-room-messages', [roomId, false]);
-    });
-
-    ddp.on('changed', async (msg) => {
-      try {
-        let args = msg.fields.args[0];
-        let username = args.u.username;
-
-        cb(username, args, args.u._id !== clientId);
-
-      } catch (err) {
-        throw err;
-      }
-    })
+    return DDP_.method('sendMessage', [{
+      rid: roomId,
+      msg: text
+    }]);
 
   } catch (err) {
     throw err;

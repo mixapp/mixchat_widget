@@ -54,26 +54,24 @@ export default class Chat extends Component {
     async function addComment(username, args, is_Manager) {
       try {
 
-        let comment = {
-          nickname: is_Manager ? username : "Вы",
-          text: Parser(args.msg.replace(/\n/g, '<br/>')),
-          date: getCurrentTime(),
-          manager: is_Manager
-        };
         this.setState({
-          comments: [...this.state.comments, comment]
+          comments: [...this.state.comments, {
+            nickname: is_Manager ? username : "Вы",
+            text: Parser(args.msg.replace(/\n/g, '<br/>')),
+            date: getCurrentTime(),
+            manager: is_Manager
+          }]
         })
 
         if (this.state.comments.length === 1) {
-          Api.callWebhook('jivo_onMessageSent', comment)
+          Api.callWebhook('jivo_onMessageSent');
         }
 
       } catch (err) {
         throw err;
       }
     }
-
-    await Api.webSocket(addComment.bind(this));
+    await Api.createSocket(addComment.bind(this));
 
     this.setState({
       isLoading: false
@@ -90,11 +88,11 @@ export default class Chat extends Component {
 
   render() {
     const { nav, color } = this.props;
-    const { isLoading } = this.state;
+    const { isLoading, comments } = this.state;
     return <Wrapper nav={nav} color={color} title="Чат с оператором">
       {isLoading ? (<Loader color={color} />) : (<div className="chat">
         <div ref={this.chatBody} className="chat-body">
-          <Comments comments={this.state.comments} />
+          <Comments comments={comments} />
         </div>
         <div className="chat-footer">
           <BottomConteiner chatBody={this.chatBody} />

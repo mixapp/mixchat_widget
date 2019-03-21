@@ -112,7 +112,7 @@ export const groupsMembers = async (roomId, authToken, userId) => {
 export const groupsHistory = async (roomId, oldest, authToken, userId) => {
   try {
 
-    return axios.get(`https://${getRocketChatURL()}/api/v1/groups.history`, {
+    let result = await axios.get(`https://${getRocketChatURL()}/api/v1/groups.history`, {
       params: {
         roomId: roomId,
         oldest: oldest
@@ -122,6 +122,15 @@ export const groupsHistory = async (roomId, oldest, authToken, userId) => {
         'X-User-Id': userId
       }
     });
+    let { messages } = result.data;
+    let messages_ = [];
+    for (let i = 0; i < messages.length; i++) {
+      if (messages[i].t === undefined) {
+        messages_.push(messages[i]);
+      }
+    }
+    result.data.messages = messages_;
+    return result;
 
   } catch (err) {
     throw err;

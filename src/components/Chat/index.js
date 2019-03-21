@@ -51,20 +51,21 @@ export default class Chat extends Component {
       });
     }
 
-    async function addComment(username, args, is_Manager) {
+    function addComment(username, args, is_Manager) {
       try {
+        if (args.t === undefined) {
+          this.setState({
+            comments: [...this.state.comments, {
+              nickname: is_Manager ? username : "Вы",
+              text: Parser(args.msg.replace(/\n/g, '<br/>')),
+              date: getCurrentTime(),
+              manager: is_Manager
+            }]
+          })
 
-        this.setState({
-          comments: [...this.state.comments, {
-            nickname: is_Manager ? username : "Вы",
-            text: Parser(args.msg.replace(/\n/g, '<br/>')),
-            date: getCurrentTime(),
-            manager: is_Manager
-          }]
-        })
-
-        if (this.state.comments.length === 1) {
-          Api.callWebhook('jivo_onMessageSent');
+          if (this.state.comments.length === 1) {
+            Api.callWebhook('jivo_onMessageSent');
+          }
         }
 
       } catch (err) {

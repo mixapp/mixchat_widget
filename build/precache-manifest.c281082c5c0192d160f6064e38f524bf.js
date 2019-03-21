@@ -1,6 +1,6 @@
 self.__precacheManifest = [
   {
-    "revision": "f63f25f8d6e3dfa46267",
+    "revision": "efbbab1824cbf8db9e50",
     "url": "/widget.js"
   },
   {

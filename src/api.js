@@ -7,8 +7,7 @@ const getUrl = (processId, companyId, path) => {
 }
 
 const getRocketChatURL = () => {
-  //return 'chat.appjs.site';
-  return 'chat.mixapp.io';
+  return config.rocketChatHost;
 }
 
 export var config = {

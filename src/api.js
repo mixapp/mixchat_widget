@@ -31,19 +31,6 @@ function getCurrentTime(date) {
   });
 }
 
-export const sentRequest = async (email, message) => {
-  try {
-    const uri = getUrl(config.processId, config.companyId, 'requests');
-    let result = await axios.post(uri, {
-      email,
-      message
-    });
-    return result.data.result;
-  } catch (err) {
-    throw err;
-  }
-};
-
 export const sentCallbackRequest = async (phone) => {
   try {
     const uri = getUrl(config.processId, config.companyId, 'callback');
@@ -247,7 +234,7 @@ export const getMessages = async (roomId, oldest, authToken, userId) => {
 }
 
 var DDP_;
-export const createSocket = async (cb) => {
+export const createSocket = async (cb = () => { }) => {
   // Stream API
   let authToken = localStorage.getItem('mixapp.token');
   let roomId = localStorage.getItem('mixapp.roomId');
@@ -282,7 +269,6 @@ export const createSocket = async (cb) => {
 
 export const sendToRocketChatWebSocket = async (roomId, text) => {
   try {
-
     return DDP_.method('sendMessage', [{
       rid: roomId,
       msg: text

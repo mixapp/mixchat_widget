@@ -9,9 +9,10 @@ export default class Request extends Component {
   state = {
     isSuccess: false,
     email: '',
-    message: ''
+    message: '',
+    socket: null
   };
-  onClickHandle() {
+  async onClickHandle() {
     const { email, message } = this.state;
     if (!email || !message) {
       return;
@@ -22,8 +23,13 @@ export default class Request extends Component {
       return;
     }
     try {
-      Api.sentRequest(email, message);
-      this.setState({ isSuccess: true });
+      // Stream API
+      let roomId = localStorage.getItem('mixapp.roomId');
+
+      let result = await Api.sendToRocketChatWebSocket(roomId, `${email}: ${message}`);
+      if (result > 0) {
+        this.setState({ isSuccess: true });
+      }
     } catch (err) {
       console.error(err);
     }
@@ -39,13 +45,20 @@ export default class Request extends Component {
     this.setState(obj);
   }
 
+  async componentDidMount() {
+    if (this.state.socket === null)
+      this.setState({
+        socket: await Api.createSocket()
+      });
+  }
+
   render() {
     const { nav, color } = this.props;
     const { email, message, isSuccess } = this.state;
 
     return <Wrapper nav={nav} color={color} title="Обратная связь">
       {!isSuccess ? <div className="request">
-        <img height="40" src={require('./brain.png')} alt="brain"/>
+        <img height="40" src={require('./brain.png')} alt="brain" />
         <div className='inside-container'>
           <p className="info">К сожалению, на данный момент все операторы заняты.
                         Оставьте свое сообщение и мы свяжемся с Вами</p>
@@ -54,7 +67,7 @@ export default class Request extends Component {
           <SimpleButton title="Отправить" onClick={this.onClickHandle.bind(this)} color={color} />
         </div>
       </div> : <div className="request">
-          <img height="40" src={require('./brain.png')} alt="brain"/>
+          <img height="40" src={require('./brain.png')} alt="brain" />
           <div className='inside-container'>
             <p className="info">Спасибо, Ваша заявка отправлена. Мы свяжемся с Вами в ближайшее время.</p>
             <SimpleButton title="Закрыть" onClick={this.onCloseHandle.bind(this)} color={color} />

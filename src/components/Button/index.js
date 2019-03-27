@@ -47,6 +47,7 @@ const getMessengerURI = (type, data) => {
 export default class Button extends React.Component {
   state = {
     showButtons: false,
+    callBackIsActive: false
   }
   onClickHandler() {
     const { showButtons } = this.state;
@@ -112,8 +113,7 @@ export default class Button extends React.Component {
             </div>
           </div>
         </div>
-        {
-          /*
+        {this.state.callBackIsActive &&
           <div className="messenger-item" onClick={() => { nav('callback') }}>
             <div className="messenger-title">Обратный звонок</div>
             <div className="messenger-icon">
@@ -122,7 +122,6 @@ export default class Button extends React.Component {
               </div>
             </div>
           </div>
-          */
         }
         {this.renderMessengerLinks()}
       </div>

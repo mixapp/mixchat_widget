@@ -7,9 +7,7 @@ const Init = async (opts) => {
     try {
         Api.config.companyId = opts.companyId;
         let settings = await Api.fetchSettings();
-        if (!settings.isActive) {
-            return;
-        }
+        if (!settings || !settings.isActive) return;
         const container = document.createElement('div');
         container.id = 'widget_omni_chanel';
         document.body.appendChild(container);

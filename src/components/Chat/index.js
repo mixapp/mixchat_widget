@@ -7,6 +7,13 @@ import Comments from './components';
 import BottomConteiner from './chat_footer';
 import './styles.css';
 
+function getCurrentTime() {
+  return new Date().toLocaleTimeString('en-GB', {
+    hour: "numeric",
+    minute: "numeric"
+  });
+}
+
 export default class Chat extends Component {
   constructor(props) {
     super(props)
@@ -18,8 +25,30 @@ export default class Chat extends Component {
     comments: []
   }
 
+  addComment(username, args, is_Manager) {
+    try {
+      if (args.t === undefined) {
+        this.setState({
+          comments: [...this.state.comments, {
+            nickname: is_Manager ? username : "Вы",
+            text: Parser(args.msg.replace(/\n/g, '<br/>')),
+            date: getCurrentTime(),
+            manager: is_Manager
+          }]
+        })
+
+        if (this.state.comments.length === 1) {
+          Api.callWebhook('jivo_onMessageSent');
+        }
+      }
+
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async componentDidMount() {
-    const { nav } = this.props;
+    const { nav, greeting } = this.props;
     let result;
     let userId = localStorage.getItem('mixapp.userId');
     let roomId = localStorage.getItem('mixapp.roomId');
@@ -44,40 +73,15 @@ export default class Chat extends Component {
       comments: comments
     });
 
-    function getCurrentTime() {
-      return new Date().toLocaleTimeString('en-GB', {
-        hour: "numeric",
-        minute: "numeric"
-      });
-    }
-
-    function addComment(username, args, is_Manager) {
-      try {
-        if (args.t === undefined) {
-          this.setState({
-            comments: [...this.state.comments, {
-              nickname: is_Manager ? username : "Вы",
-              text: Parser(args.msg.replace(/\n/g, '<br/>')),
-              date: getCurrentTime(),
-              manager: is_Manager
-            }]
-          })
-
-          if (this.state.comments.length === 1) {
-            Api.callWebhook('jivo_onMessageSent');
-          }
-        }
-
-      } catch (err) {
-        throw err;
-      }
-    }
-    await Api.createSocket(addComment.bind(this));
+    await Api.createSocket(this.addComment.bind(this));
 
     this.setState({
       isLoading: false
     });
     Api.callWebhook('jivo_onOpen', { naem: 'web', title: 'Чат с оператором' });
+    if (greeting) {
+      this.addComment('{0_0}', { msg: `<div>${greeting}</div>` }, true);
+    }
   }
 
   async componentDidUpdate() {

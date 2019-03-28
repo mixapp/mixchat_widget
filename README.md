@@ -18,4 +18,8 @@ Also [Demo](https://mixchat.mixapp.io)
 3. Run `docker run -p 3000:80 widget`
 4. Look at http://localhost:8080
 
+## To use your companyId
+
+In the root folder find dir "public" and in the index.html change companyid.
+
 Powered by Mixapp. See: https://mixapp.io/mixchat

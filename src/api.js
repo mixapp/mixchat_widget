@@ -1,19 +1,17 @@
 import axios from 'axios';
 import Parser from 'html-react-parser';
 import DDP from 'ddp.js';
+import json from './config.json';
 
-const getUrl = (processId, companyId, path) => {
-  return `https://api.mixapp.io/webhooks/mixapp/${processId}/${companyId}/${path}`
+export var config = {};
+
+const getUrl = (companyId, path) => {
+  return `https://${json.API_URL}/${companyId}/${path}`
 }
 
 const getRocketChatURL = () => {
   return config.rocketChatHost;
 }
-
-export var config = {
-  companyId: '',
-  processId: '5c890db9574e7435772c4773'
-};
 
 export function getConfig() {
   return Object.assign({}, config);
@@ -33,7 +31,7 @@ function getCurrentTime(date) {
 
 export const sentCallbackRequest = async (phone) => {
   try {
-    const uri = getUrl(config.processId, config.companyId, 'callback');
+    const uri = getUrl(config.companyId, 'callback');
     let result = await axios.post(uri, {
       phone
     });
@@ -44,9 +42,9 @@ export const sentCallbackRequest = async (phone) => {
 };
 
 // Fetch widget settings by company
-export const fetchSettings = async () => {
+export const fetchSettings = async (companyId) => {
   try {
-    const uri = getUrl(config.processId, config.companyId, 'widget');
+    const uri = getUrl(companyId, 'widget');
     let result = await axios.get(uri);
     return result.data.result;
   } catch (err) {
@@ -125,7 +123,7 @@ export const groupsHistory = async (roomId, oldest, authToken, userId) => {
 
 export const regClient = async () => {
   try {
-    const uri = getUrl(config.processId, config.companyId, 'reg-client');
+    const uri = getUrl(config.companyId, 'reg-client');
     let result = await axios.post(uri);
     return result;
   } catch (err) {
@@ -135,7 +133,7 @@ export const regClient = async () => {
 
 export const startChat = async (userId, roomId) => {
   try {
-    const uri = getUrl(config.processId, config.companyId, 'start-chat');
+    const uri = getUrl(config.companyId, 'start-chat');
     let result = await axios.post(uri, {
       userId: userId,
       roomId: roomId
@@ -193,7 +191,7 @@ export const init = async function (newUser) {
 
 /* Functions */
 
-async function getMessage(message, user_manager, user_client) {
+async function getMessage(message) {
   try {
     let clientId = localStorage.getItem('mixapp.userId');
     return {

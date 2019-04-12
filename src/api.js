@@ -52,26 +52,6 @@ export const fetchSettings = async (companyId) => {
   }
 };
 
-export const groupsInfo = async (roomId, authToken, userId) => {
-  try {
-
-    let result = await axios.get(`https://${getRocketChatURL()}/api/v1/groups.info`, {
-      params: {
-        roomId: roomId
-      },
-      headers: {
-        'X-Auth-Token': authToken,
-        'X-User-Id': userId
-      }
-    }
-    );
-    return result;
-
-  } catch (err) {
-    throw err;
-  }
-}
-
 export const groupsMembers = async (roomId, authToken, userId) => {
   try {
 

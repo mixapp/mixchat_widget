@@ -44,6 +44,7 @@ div.comment {
     display: flex;
     padding-bottom: 15px;
     margin-top: 5px;
+    word-break: break-word;
 }
 
 div.comment-revers {
@@ -51,6 +52,7 @@ div.comment-revers {
     padding-bottom: 10px;
     flex-direction: row-reverse;
     margin-top: 5px;
+    word-break: break-word;
 }
 
 div.comment-text {

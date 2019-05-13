@@ -116,7 +116,7 @@ div.avatar-revers>div {
 
 .comment>.comment-text>.text {
     display: flex;
-    font-size: 14px;
+    font-size: 13px;
     border-radius: 0px 13px 13px 13px;
     padding: 10px;
     text-align: left;
@@ -125,7 +125,7 @@ div.avatar-revers>div {
 
 .comment-revers>.comment-text>.text {
     display: flex;
-    font-size: 14px;
+    font-size: 13px;
     border-radius: 13px 0px 13px 13px;
     padding: 10px;
     text-align: left;

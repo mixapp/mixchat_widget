@@ -79,9 +79,8 @@ export default class Chat extends Component {
       isLoading: false
     });
     Api.callWebhook('jivo_onOpen', { naem: 'web', title: 'Чат с оператором' });
-    console.log();
     if (greeting && this.state.comments.length < 1) {
-      this.addComment('{0_0}', { msg: `<div>${greeting}</div>` }, true);
+      this.addComment(this.props.companyName, { msg: `<div>${greeting}</div>` }, true);
     }
   }
 
